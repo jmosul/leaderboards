@@ -1,0 +1,141 @@
+service: leaderboards
+
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: offline
+  region: eu-west-1
+  profile: serverless
+  environment: ${file(./serverless.env.yml):${opt:stage, self:provider.stage}}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - { "Fn::GetAtt": ["LeaguesDynamoDBTable", "Arn" ] }
+        - { "Fn::GetAtt": ["UserLeaguesDynamoDBTable", "Arn" ] }
+        - { "Fn::GetAtt": ["CompetitorDynamoDBTable", "Arn" ] }
+        - { "Fn::GetAtt": ["MatchesDynamoDBTable", "Arn" ] }
+
+package:
+  exclude:
+    - ".*/**"
+
+custom:
+  dynamodb:
+    start:
+      migrate: true
+      seed: false
+    seed:
+      leagues:
+        sources:
+          - table: leaderboards-offline-leagues
+            sources: [./migrations/leagues.json]
+          - table: leaderboards-offline-user-leagues
+            sources: [./migrations/user_leagues.json]
+    stages:
+      - offline
+
+functions:
+  app:
+    handler: index.handler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+
+resources:
+  Resources:
+    CognitoUserPool:
+      Type: "AWS::Cognito::UserPool"
+      Properties:
+        MfaConfiguration: OFF
+        UserPoolName: cognito-pool
+        UsernameAttributes:
+          - email
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 6
+            RequireLowercase: False
+            RequireNumbers: True
+            RequireSymbols: False
+            RequireUppercase: True
+    CognitoUserPoolClient:
+      Type: "AWS::Cognito::UserPoolClient"
+      Properties:
+        ClientName: cognito-client-pool
+        GenerateSecret: False
+        UserPoolId:
+          Ref: CognitoUserPool
+    ApiGatewayAuthorizer:
+      DependsOn:
+        - ApiGatewayRestApi
+      Type: AWS::ApiGateway::Authorizer
+      Properties:
+        Name: cognito-authorizer
+        IdentitySource: method.request.header.Authorization
+        RestApiId:
+          Ref: ApiGatewayRestApi
+        Type: COGNITO_USER_POOLS
+        ProviderARNs:
+          - Fn::GetAtt: [CognitoUserPool, Arn]
+    LeaguesDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: leaguePool
+            AttributeType: S
+        KeySchema:
+          - AttributeName: leaguePool
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: 'leaderboards-${opt:stage, self:provider.stage}-leagues'
+    UserLeaguesDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: 'leaderboards-${opt:stage, self:provider.stage}-user-leagues'
+    CompetitorDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: leagueId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: leagueId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: 'leaderboards-${opt:stage, self:provider.stage}-competitors'
+    MatchesDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: leagueId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: leagueId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: 'leaderboards-${opt:stage, self:provider.stage}-matches'
