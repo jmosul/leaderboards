@@ -58,7 +58,7 @@ resources:
       Type: "AWS::Cognito::UserPool"
       Properties:
         MfaConfiguration: OFF
-        UserPoolName: cognito-pool
+        UserPoolName: leaderboards-cognito-pool
         UsernameAttributes:
           - email
         Policies:
