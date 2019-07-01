@@ -16,3 +16,13 @@ Content-Type: application/json
 }
 
 ###
+
+POST {{API_HOST}}/leagues/{{LEAGUE_ID}}/join
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "James"
+}
+
+###
