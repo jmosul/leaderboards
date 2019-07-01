@@ -12,7 +12,7 @@ POST {{API_HOST}}/leagues
 Content-Type: application/json
 
 {
-  "name": "my new league"
+  "name": "my new league 1"
 }
 
 ###

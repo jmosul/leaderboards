@@ -39,12 +39,13 @@ class LeaguesController extends Controller {
             });
         }
 
-        const league = new League({
-            leaguePool: this.leaguePool,
-            name
-        });
-
-        return league.save((err) => this.respond(err, league));
+        return League.create(
+            {
+                leaguePool: this.leaguePool,
+                name
+            },
+            (err, league) => this.respond(err, league)
+        );
     }
 
     async _getUserLeagueIds() {
