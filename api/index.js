@@ -5,9 +5,12 @@ const bodyParser = require('body-parser');
 
 const app = require('express')();
 
-app.use( bodyParser.json() );
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-const LeaguesController = require('./src/controllers/LeaguesController');
+const controllers = [
+    require('./src/controllers/LeaguesController')
+];
 
 // run local db on sls offline
 if(process.env.IS_OFFLINE) {
@@ -16,9 +19,7 @@ if(process.env.IS_OFFLINE) {
     dynamoose.local();
 }
 
-app.get('/leagues', async(req, res) => await LeaguesController.handle('index', req, res));
-app.post('/leagues', async(req, res) => await LeaguesController.handle('store', req, res));
-app.get('/leagues/:leagueId', async(req, res) => await LeaguesController.handle('show', req, res));
+controllers.reduce((app, controller) => controller.registerRoutes(app), app);
 
 module.exports.handler = serverless(app);
 

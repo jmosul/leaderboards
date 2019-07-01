@@ -39,6 +39,14 @@ class Controller {
         return true;
     }
 
+    static registerRoutes(app, resourceRoute, resourceParam) {
+        app.get(`/${resourceRoute}`, async(req, res) => await this.handle('index', req, res));
+        app.post(`/${resourceRoute}`, async(req, res) => await this.handle('store', req, res));
+        app.get(`/${resourceRoute}/:${resourceParam}`, async(req, res) => await this.handle('show', req, res));
+
+        return app;
+    }
+
     static async handle(method, request, response) {
         const controller = new this(request, response);
 
