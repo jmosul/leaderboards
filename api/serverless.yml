@@ -155,3 +155,24 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: 'leaderboards-${opt:stage, self:provider.stage}-matches'
+    MatchContestantsDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: leagueId
+            AttributeType: S
+          - AttributeName: matchId
+            AttributeType: S
+          - AttributeName: competitorId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: leagueId
+            KeyType: HASH
+          - AttributeName: matchId
+            KeyType: RANGE
+          - AttributeName: competitorId
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: 'leaderboards-${opt:stage, self:provider.stage}-match-contestants'
