@@ -1,6 +1,5 @@
 const Controller = require('./Controller');
 
-const Competitor = require('../models/Competitors');
 const League = require('../models/Leagues');
 const UserLeagues = require('../models/UserLeagues');
 
@@ -49,51 +48,8 @@ class LeaguesController extends Controller {
         );
     }
 
-    async join() {
-        // TODO replace with cognito current user
-        const userId = 'jmosul';
-        const name = this.request.body.name;
-
-        if(!name || name.length === 0) {
-            return this.error({
-                status: 400,
-                message: 'Must specify valid player name'
-            });
-        }
-
-        return await UserLeagues.create(
-            {
-                leagueId: this.leagueId,
-                userId
-            },
-            async (err) => {
-                if(!err) {
-                    return await Competitor.create(
-                        {
-                            leagueId: this.leagueId,
-                            competitorId: userId,
-                            name
-                        },
-                        (err, competitor) => this.respond(err, competitor)
-                    );
-                }
-
-                return this.respond(err)
-            }
-        );
-    }
-
-    static registerRoutes(app) {
-        app = super.registerRoutes(app, 'leagues', 'leagueId');
-
-        app.post('/leagues/:leagueId/join', async(req, res) => await this.handle('join', req, res));
-
-        return app;
-    }
-
     async _getUserLeagueIds() {
-        // TODO replace with cognito current user
-        const userId = 'jmosul';
+        const userId = this.userId;
 
         return await UserLeagues
             .query('userId')

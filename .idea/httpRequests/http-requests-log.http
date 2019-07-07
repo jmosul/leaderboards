@@ -1,0 +1,445 @@
+GET http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/competitors/jmosul
+Accept: application/json
+
+<> 2019-07-07T060839.200.html
+
+###
+
+GET http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/competitors/jmosul
+Accept: application/json
+
+<> 2019-07-07T060822.200.html
+
+###
+
+GET http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/competitors/jmosul
+Accept: application/json
+
+<> 2019-07-07T060729.200.html
+
+###
+
+GET http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/competitors
+Accept: application/json
+
+<> 2019-07-07T060725.200.html
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/competitors
+Content-Type: application/json
+
+{
+  "name": "James"
+}
+
+<> 2019-07-07T060720.200.html
+
+###
+
+GET http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/competitors
+Accept: application/json
+
+<> 2019-07-07T060709.200.html
+
+###
+
+GET http://localhost:3000/leagues
+Accept: application/json
+
+<> 2019-07-07T060615.200.html
+
+###
+
+GET http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/competitors
+Accept: application/json
+
+<> 2019-07-04T054811.200.html
+
+###
+
+GET http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/competitors/jmosul
+Accept: application/json
+
+<> 2019-07-04T054742.200.html
+
+###
+
+GET http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/competitors
+Accept: application/json
+
+<> 2019-07-04T054731.200.html
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/competitors
+Content-Type: application/json
+
+{
+  "name": "James"
+}
+
+<> 2019-07-04T054728.200.html
+
+###
+
+GET http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/competitors
+Accept: application/json
+
+<> 2019-07-04T054722.200.html
+
+###
+
+GET http://localhost:3000/leagues
+Accept: application/json
+
+<> 2019-07-04T054551.200.html
+
+###
+
+POST http://localhost:3000/leagues
+Content-Type: application/json
+
+{
+  "name": "my new league 1"
+}
+
+<> 2019-07-04T054545.200.html
+
+###
+
+GET http://localhost:3000/leagues
+Accept: application/json
+
+<> 2019-07-04T054501.200.html
+
+###
+
+GET http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/competitors/jmosul
+Accept: application/json
+
+<> 2019-07-02T092706.200.html
+
+###
+
+GET http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/competitors/jmosul
+Accept: application/json
+
+<> 2019-07-01T070654.200.html
+
+###
+
+GET http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/competitors/jmosul
+Accept: application/json
+
+<> 2019-07-01T070524.200.html
+
+###
+
+GET http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/competitors/jmosul
+Accept: application/json
+
+<> 2019-07-01T070438.200.html
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/competitors
+Content-Type: application/json
+
+{
+  "name": "James"
+}
+
+<> 2019-07-01T070211.200.html
+
+###
+
+GET http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/competitors/jmosul
+Accept: application/json
+
+<> 2019-07-01T070204.200.html
+
+###
+
+GET http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/competitors
+Accept: application/json
+
+<> 2019-07-01T070143.200.html
+
+###
+
+GET http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/competitors
+Accept: application/json
+
+<> 2019-07-01T070032.200.html
+
+###
+
+GET http://localhost:3000/leagues
+Accept: application/json
+
+<> 2019-07-01T070010.200.html
+
+###
+
+GET http://localhost:3000/leagues
+Accept: application/json
+
+<> 2019-07-01T065741.200.html
+
+###
+
+GET http://localhost:3000/leagues
+Accept: application/json
+
+<> 2019-07-01T065650.200.json
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/join
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "James"
+}
+
+<> 2019-07-01T060911.200.html
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/join
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "James"
+}
+
+<> 2019-07-01T060842.200.html
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/join
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "James"
+}
+
+<> 2019-07-01T060758.200.html
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/join
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "James"
+}
+
+<> 2019-07-01T060745.200.html
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/join
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "James"
+}
+
+<> 2019-07-01T060724.200.html
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/join
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "James"
+}
+
+<> 2019-07-01T060644.200.html
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/join
+Accept: application/json
+
+{
+  "name": "James"
+}
+
+<> 2019-07-01T060632.200.html
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/join
+Accept: application/json
+
+{
+  "name": "James"
+}
+
+<> 2019-07-01T060410.200.html
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/join
+Accept: application/json
+
+{
+  "name": "James"
+}
+
+<> 2019-07-01T060219.200.html
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/join
+Accept: application/json
+
+{
+  "name": "James"
+}
+
+<> 2019-07-01T060026.200.html
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/join
+Accept: application/json
+
+{
+  "name": "James"
+}
+
+<> 2019-07-01T053020.200.html
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/join
+Accept: application/json
+
+{
+  "name": "James"
+}
+
+<> 2019-07-01T052958.200.html
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/join
+Accept: application/json
+{:
+  "name": "James"
+}:
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/join
+Accept: application/json
+
+{
+  "name": "James"
+}
+
+<> 2019-07-01T052919.200.html
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/join
+Accept: application/json
+
+{
+  "name": "James"
+}
+
+<> 2019-07-01T052839.200.html
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/join
+Accept: application/json
+
+<> 2019-07-01T052813.200.html
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/join
+Accept: application/json
+
+<> 2019-07-01T052735.503.txt
+
+###
+
+POST http://localhost:3000/leagues/42237c86-be73-4ef4-9176-6e21ece28d5e/join
+Accept: application/json
+
+<> 2019-07-01T042613.200.html
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/join
+Accept: application/json
+
+<> 2019-07-01T042532.200.html
+
+###
+
+POST http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/join
+Accept: application/json
+
+<> 2019-07-01T040019.200.html
+
+###
+
+POST http://localhost:3000/leagues
+Content-Type: application/json
+
+{
+  "name": "my new league 1"
+}
+
+<> 2019-07-01T033931.200.html
+
+###
+
+POST http://localhost:3000/leagues
+Content-Type: application/json
+
+{
+  "name": "my new league 1"
+}
+
+<> 2019-07-01T030324.200.html
+
+###
+
+POST http://localhost:3000/leagues
+Content-Type: application/json
+
+{
+  "name": "my new league 1"
+}
+
+<> 2019-07-01T025849.200.html
+
+###
+
+POST http://localhost:3000/leagues
+Content-Type: application/json
+
+{
+  "name": "my new league 1"
+}
+
+<> 2019-07-01T025621.200.html
+
+###
+

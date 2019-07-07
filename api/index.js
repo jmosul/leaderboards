@@ -9,7 +9,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const controllers = [
-    require('./src/controllers/LeaguesController')
+    require('./src/controllers/LeaguesController'),
+    require('./src/controllers/CompetitorsController'),
 ];
 
 // run local db on sls offline

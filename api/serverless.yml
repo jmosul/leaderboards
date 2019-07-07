@@ -40,8 +40,8 @@ custom:
         sources:
           - table: leaderboards-offline-leagues
             sources: [./migrations/leagues.json]
-          - table: leaderboards-offline-user-leagues
-            sources: [./migrations/user_leagues.json]
+#          - table: leaderboards-offline-user-leagues
+#            sources: [./migrations/user_leagues.json]
     stages:
       - offline
 
