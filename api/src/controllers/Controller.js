@@ -44,18 +44,6 @@ class Controller {
         return true;
     }
 
-    static registerRoutes(app, resourceRoute, resourceParam) {
-        const routePath = resourceRoute ? `/leagues/:leagueId/${resourceRoute}` : '/leagues';
-
-        resourceParam = resourceParam || 'leagueId';
-
-        app.get(routePath, async(req, res) => await this.handle('index', req, res));
-        app.post(routePath, async(req, res) => await this.handle('store', req, res));
-        app.get(`${routePath}/:${resourceParam}`, async(req, res) => await this.handle('show', req, res));
-
-        return app;
-    }
-
     static async handle(method, request, response) {
         const controller = new this(request, response);
 
@@ -67,6 +55,15 @@ class Controller {
         }
 
         return await controller[method]();
+    }
+
+    /**
+     * @param {string|undefined} resourceRoute
+     * @return {string}
+     * @private
+     */
+    static _buildResourceRoute(resourceRoute) {
+        return resourceRoute ? `/leagues/:leagueId/${resourceRoute}` : '/leagues';
     }
 }
 

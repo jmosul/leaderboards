@@ -1,9 +1,9 @@
-const Controller = require('./Controller');
+const ResourceController = require('./ResourceController');
 
 const League = require('../models/Leagues');
 const UserLeagues = require('../models/UserLeagues');
 
-class LeaguesController extends Controller {
+class LeaguesController extends ResourceController {
 
     async index() {
         return await this._getUserLeagueIds().then(

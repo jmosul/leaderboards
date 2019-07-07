@@ -1,9 +1,9 @@
-const Controller = require('./Controller');
+const ResourceController = require('./ResourceController');
 
 const Competitor = require('../models/Competitor');
 const UserLeagues = require('../models/UserLeagues');
 
-class CompetitorsController extends Controller {
+class CompetitorsController extends ResourceController {
 
     async index() {
         return await Competitor
