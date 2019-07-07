@@ -3,7 +3,7 @@ const Controller = require('./Controller');
 
 class ResourceController extends Controller {
     static registerRoutes(app, resourceRoute, resourceParam) {
-        const routePath = this._buildResourceRoute(resourceRoute);
+        const routePath = this._buildLeagueRoute(resourceRoute);
 
         resourceParam = resourceParam || 'leagueId';
 
@@ -14,3 +14,5 @@ class ResourceController extends Controller {
         return app;
     }
 }
+
+module.exports = ResourceController;

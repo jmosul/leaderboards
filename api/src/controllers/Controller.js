@@ -5,11 +5,19 @@ class Controller {
         this.response = response;
     }
 
+    get params() {
+        return this.request.params;
+    }
+
+    get body() {
+        return this.request.body;
+    }
+
     /**
      * @return {string|undefined}
      */
     get leagueId() {
-        return this.request.params.leagueId;
+        return this.params.leagueId;
     }
 
     /**
@@ -62,7 +70,7 @@ class Controller {
      * @return {string}
      * @private
      */
-    static _buildResourceRoute(resourceRoute) {
+    static _buildLeagueRoute(resourceRoute) {
         return resourceRoute ? `/leagues/:leagueId/${resourceRoute}` : '/leagues';
     }
 }

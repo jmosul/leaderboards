@@ -1,4 +1,5 @@
 const dynamoose = require('dynamoose');
+const uuid = require('uuid');
 
 const Schema = dynamoose.Schema;
 
@@ -8,6 +9,11 @@ const matchContestantSchema = new Schema({
     leagueId: {
         type: String,
         hashKey: true,
+    },
+    matchContestantId: {
+        type: String,
+        trim: true,
+        default: uuid.v4
     },
     matchId: {
         type: String,

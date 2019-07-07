@@ -1,0 +1,12 @@
+POST {{API_HOST}}/leagues/{{LEAGUE_ID}}/matches
+Content-Type: application/json
+
+{
+  "homeCompetitor": "d765a73b-4b4f-4c6b-bd9d-cc1df4d5d2d2",
+  "awayCompetitor": "3e8bef02-22f1-4da4-91a6-8da5f776966e",
+  "homeScore": 21,
+  "awayScore": 15,
+  "victor" : "home"
+}
+
+###

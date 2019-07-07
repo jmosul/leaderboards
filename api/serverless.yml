@@ -40,8 +40,10 @@ custom:
         sources:
           - table: leaderboards-offline-leagues
             sources: [./migrations/leagues.json]
-#          - table: leaderboards-offline-user-leagues
-#            sources: [./migrations/user_leagues.json]
+          - table: leaderboards-offline-user-leagues
+            sources: [./migrations/user_leagues.json]
+          - table: leaderboards-offline-competitors
+            sources: [./migrations/competitors.json]
     stages:
       - offline
 
@@ -161,16 +163,12 @@ resources:
         AttributeDefinitions:
           - AttributeName: leagueId
             AttributeType: S
-          - AttributeName: matchId
-            AttributeType: S
-          - AttributeName: competitorId
+          - AttributeName: matchContestantId
             AttributeType: S
         KeySchema:
           - AttributeName: leagueId
             KeyType: HASH
-          - AttributeName: matchId
-            KeyType: RANGE
-          - AttributeName: competitorId
+          - AttributeName: matchContestantId
             KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
