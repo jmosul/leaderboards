@@ -22,76 +22,94 @@ class MatchesResourceCollection {
      * @param {string} leagueId
      * @param {Array<MatchResource>} matches
      */
-    async static getMatchContestants(leagueId, matches) {
+    static async getMatchContestants(leagueId, matches) {
         const matchIds = matches.map((match) => match.matchId);
 
-        return await MatchContestant.query({
-            leagueId,
-            matchId: { in: matchIds }
-        }).exec(
-            (err, contestants) => {
-                if(err) {
-                    throw err;
-                }
+        return new Promise((resolve, reject) => {
+            MatchContestant.query({
+                    leagueId,
+                    matchId: { in: matchIds }
+                },
+                (err, contestants) => {
+                    if(err) {
+                        reject(err);
+                    }
 
-                return contestants;
-            }
-        );
+                    resolve(contestants);
+                }
+            );
+
+        });
     }
 
-    async static getCompetitorsFromContestants(leagueId, contestants) {
-        const competitorIds = contestants.map((competitor) => competitor.competitorId);
+    static async getCompetitorsFromContestants(leagueId, contestants) {
+        return new Promise((resolve, reject) => {
+            const competitorIds = contestants.map((competitor) => competitor.competitorId);
 
-        return await Competitor.query({
-            leagueId,
-            competitorId: { in: competitorIds }
-        }).exec(
-            (err, competitors) => {
-                if(err) {
-                    throw err;
+            Competitor.query({
+                leagueId,
+                competitorId: { in: competitorIds }
+            }).exec(
+                (err, competitors) => {
+                    if(err) {
+                        reject(err);
+                    }
+
+                    const mappedCompetitors = {};
+
+                    competitors.forEach((competitor) => {
+                        mappedCompetitors[competitor.competitorId] = competitor;
+                    });
+
+                    resolve(mappedCompetitors);
                 }
+            );
 
-                const mappedCompetitors = {};
-
-                competitors.forEach((competitor) => {
-                   mappedCompetitors[competitor.competitorId] = competitor;
-                });
-
-                return mappedCompetitors;
-            }
-        );
+        });
     }
 
     /**
      * @param {Array<Match>}matches
      */
-    async static createFromMatches(matches) {
-        if(matches.length === 0) {
-            return new MatchesResourceCollection();
-        }
+    static async createFromMatches(matches) {
+        return new Promise((resolve, reject) => {
 
-        const matchResources = {};
+            if(matches.length === 0) {
+                resolve(new MatchesResourceCollection());
+            }
 
-        let leagueId;
+            const matchResources = {};
 
-        matches.forEach((match) => {
-            matchResources[match.matchId] = new MatchResource(match);
+            let leagueId;
 
-            leagueId = matchResources[match.matchId].leagueId;
+            matches.forEach((match) => {
+                matchResources[match.matchId] = new MatchResource(match);
+
+                leagueId = matchResources[match.matchId].leagueId;
+            });
+
+            this.getMatchContestants(leagueId, Object.values(matchResources)).then(
+                (matchContestants) => {
+                    this.getCompetitorsFromContestants(leagueId, matchContestants).then(
+                        (competitors) => {
+                            matchContestants.forEach((matchContestant) => {
+                                const matchId = matchContestant.matchId;
+
+                                const competitor = competitors[matchContestant.competitorId];
+
+                                matchResources[matchId].associateMatchContestant(matchContestant, competitor);
+                            });
+
+                            const collection = new MatchesResourceCollection(Object.values(matchResources));
+
+                            resolve(collection);
+                        },
+                        (error) => reject(error)
+                    );
+                },
+                (err) => reject(err)
+            );
         });
-
-        const matchContestants = await this.getMatchContestants(leagueId, Object.values(matches));
-        const competitors = await this.getCompetitorsFromContestants(leagueId, matchContestants);
-
-        matchContestants.forEach((matchContestant) => {
-            const matchId = matchContestant.matchId;
-
-            const competitor = competitors[matchContestant.competitorId];
-
-            matches[matchId].associateMatchContestant(matchContestant, competitor);
-        });
-
-        return new MatchesResourceCollection(Object.values(matches));
     }
 }
 

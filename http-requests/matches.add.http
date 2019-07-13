@@ -10,3 +10,8 @@ Content-Type: application/json
 }
 
 ###
+
+GET {{API_HOST}}/leagues/{{LEAGUE_ID}}/matches
+Accept: application/json
+
+###

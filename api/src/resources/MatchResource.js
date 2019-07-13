@@ -17,7 +17,7 @@ class MatchResource {
     }
 
     get date() {
-        return this._match.created_date;
+        return this._match.createdAt;
     }
 
     get victor() {

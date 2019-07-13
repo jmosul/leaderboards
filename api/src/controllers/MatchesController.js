@@ -2,34 +2,31 @@ const Controller = require('./Controller');
 const Match = require('../models/Match');
 const MatchesResourceCollection = require('../resources/MatchesResourceCollection');
 
-class AddMatchController extends Controller {
+class MatchesController extends Controller {
 
     async index() {
-        return await this._getUserLeagueIds().then(
-            async(leagueIds) => await Match
-                .query({
-                    leaguePool: this.leaguePool,
-                    leagueId: { in: leagueIds }
-                })
-                .exec(
-                    async (err, matches) => {
-                        if(err) {
-                            return this.error(err);
-                        }
-
-                        try {
-                            const collection = await MatchesResourceCollection.createFromMatches(matches);
-
-                            return collection.toJson();
-                        }
-                        catch(err) {
-                            return this.error(err);
-                        }
-
+        return await Match
+            .query({
+                leagueId: this.leagueId
+            })
+            .exec(
+                async(err, matches) => {
+                    if(err) {
+                        return this.error(err);
                     }
-                ),
-            (err) => this.error(err)
-        )
+
+                    try {
+                        const collection = await MatchesResourceCollection.createFromMatches(matches);
+
+                        const response = collection.toJson();
+
+                        return this.send(response);
+                    }
+                    catch(err) {
+                        return this.error(err);
+                    }
+                }
+            );
     }
 
     /**
@@ -37,7 +34,7 @@ class AddMatchController extends Controller {
      * @return {*}
      */
     static registerRoutes(app) {
-        const leagueRoute = AddMatchController._buildLeagueRoute('matches');
+        const leagueRoute = MatchesController._buildLeagueRoute('matches');
 
         app.get(leagueRoute, async(req, res) => await this.handle('index', req, res));
 
@@ -45,4 +42,4 @@ class AddMatchController extends Controller {
     }
 }
 
-module.exports = AddMatchController;
+module.exports = MatchesController;
