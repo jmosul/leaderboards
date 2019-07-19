@@ -13,6 +13,7 @@ const leaguesSchema = new Schema({
     leagueId: {
         type: String,
         trim: true,
+        rangeKey: true,
         default: uuid.v4
     },
     name: {

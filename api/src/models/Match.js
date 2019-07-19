@@ -13,6 +13,7 @@ const matchSchema = new Schema({
     matchId: {
         type: String,
         trim: true,
+        rangeKey: true,
         default: uuid.v4
     },
 }, {

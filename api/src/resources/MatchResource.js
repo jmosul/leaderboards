@@ -66,7 +66,7 @@ class MatchResource {
         return  {
             competitorId: this[key].competitor.competitorId,
             name: this[key].competitor.name,
-            rank: this[key].competitor.rank || 0,
+            rank: this[key].matchContestant.postRank, // || this[key].competitor.rank || 0,
             score: this[key].matchContestant.score,
             result: this[key].matchContestant.result,
         }

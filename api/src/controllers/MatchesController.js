@@ -3,17 +3,23 @@ const Match = require('../models/Match');
 const MatchesResourceCollection = require('../resources/MatchesResourceCollection');
 
 class MatchesController extends Controller {
-
     async index() {
+        const now = new Date();
+
         return await Match
-            .query({
-                leagueId: this.leagueId
-            })
+            .query('leagueId')
+            .eq(this.leagueId)
+            .where('createdAt')
+            // .lt(now)
+            .descending()
             .exec(
-                async(err, matches) => {
+                async (err, matches) => {
                     if(err) {
                         return this.error(err);
                     }
+
+                    matches.forEach((match) => console.log(match.createdAt));
+
 
                     try {
                         const collection = await MatchesResourceCollection.createFromMatches(matches);

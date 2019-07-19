@@ -11,7 +11,8 @@ const userLeaguesSchema = new Schema({
     },
     leagueId: {
         type: String,
-        trim: true
+        trim: true,
+        rangeKey: true,
     }
 }, {
     timestamps: true

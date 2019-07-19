@@ -10,6 +10,7 @@ const competitorsSchema = new Schema({
         hashKey: true,
     },
     competitorId: {
+        rangeKey: true,
         type: String,
         trim: true
     },
@@ -19,7 +20,7 @@ const competitorsSchema = new Schema({
     },
     rank: {
         type: Number,
-        default: 0
+        default: 1000
     }
 }, {
     timestamps: true

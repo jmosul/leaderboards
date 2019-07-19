@@ -1,6 +1,8 @@
 const Controller = require('./Controller');
 const Match = require('../models/Match');
 const MatchContestant = require('../models/MatchContestant');
+const Competitor = require('../models/Competitor');
+const Elo = require('@pelevesque/elo');
 
 class AddMatchController extends Controller {
 
@@ -18,7 +20,7 @@ class AddMatchController extends Controller {
             {
                 leagueId: this.leagueId
             },
-            async (err, match) => {
+            async(err, match) => {
                 if(err) {
                     return this.error(err);
                 }
@@ -50,6 +52,18 @@ class AddMatchController extends Controller {
         const homeContestant = this._getBaseContestant('home');
         const awayContestant = this._getBaseContestant('away');
 
+        await this._setCompetitorsFromBody();
+
+        const elo = new Elo();
+
+        homeContestant.preRank = this._home.rank;
+        awayContestant.preRank = this._away.rank;
+
+        this._home.rank = homeContestant.postRank = elo.getRating(homeContestant.preRank, awayContestant.preRank, this.getEloVictor('home'));
+        this._away.rank = awayContestant.postRank = elo.getRating(awayContestant.preRank, homeContestant.preRank, this.getEloVictor('away'));
+
+        await this.saveCompetitors();
+
         return await MatchContestant.batchPut(
             [
                 homeContestant,
@@ -64,6 +78,21 @@ class AddMatchController extends Controller {
      */
     get victor() {
         return this.body.victor || MatchContestant.RESULT.DRAW;
+    }
+
+    /**
+     * @param homeAway
+     * @return {number}
+     */
+    getEloVictor(homeAway) {
+        if(this.victor === homeAway) {
+            return 1;
+        }
+        else if(this.victor !== homeAway) {
+            return 0;
+        }
+
+        return 0.5;
     }
 
     /**
@@ -101,6 +130,67 @@ class AddMatchController extends Controller {
             default:
                 return MatchContestant.RESULT.LOSE;
         }
+    }
+
+    /**
+     * @return {Promise<*>}
+     * @private
+     */
+    async _setCompetitorsFromBody() {
+        return new Promise((resolve, reject) => {
+            Competitor.query(
+                {
+                    leagueId: this.leagueId,
+                    competitorId: { in: [this.body.homeCompetitor, this.body.awayCompetitor] }
+                }
+            ).exec(
+                (err, competitors) => {
+                    this._setCompetitors(competitors);
+
+                    if(err) {
+                        return reject(err);
+                    }
+
+                    competitors.forEach((competitor) => {
+                        const key = competitor.competitorId === this.body.homeCompetitor ? '_home' : '_away';
+
+                        this[key] = competitor;
+                    });
+
+                    resolve();
+                }
+            )
+        });
+    }
+
+    async saveCompetitors() {
+        return Promise.all([
+            this._saveHomeCompetitor(),
+            this._saveAwayCompetitor(),
+        ]);
+    }
+
+    async _saveHomeCompetitor() {
+        return new Promise((resolve, reject) => {
+           Competitor.update({
+               leagueId: this.leagueId,
+               competitorId: this._home.competitorId
+           }, {rank: this._home.rank}, (err) => err ? reject(err) : resolve())
+        });
+    }
+
+    async _saveAwayCompetitor() {
+        return new Promise((resolve, reject) => {
+            Competitor.update({
+                leagueId: this.leagueId,
+                competitorId: this._away.competitorId,
+            }, {rank: this._away.rank}, (err) => err ? reject(err) : resolve())
+        });
+    }
+
+    _setCompetitors(competitors) {
+        this._home = competitors[0];
+        this._away = competitors[1];
     }
 }
 
