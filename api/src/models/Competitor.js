@@ -20,7 +20,23 @@ const competitorsSchema = new Schema({
     },
     rank: {
         type: Number,
-        default: 1000
+        default: 1500
+    },
+    played: {
+        type: Number,
+        default: 0
+    },
+    wins: {
+        type: Number,
+        default: 0
+    },
+    loses: {
+        type: Number,
+        default: 0
+    },
+    draws: {
+        type: Number,
+        default: 0
     }
 }, {
     timestamps: true

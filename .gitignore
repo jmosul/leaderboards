@@ -1,3 +1,5 @@
 .idea
 .idea/httpRequests
 http-client.env.json
+amplify
+.aws
