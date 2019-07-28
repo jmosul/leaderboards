@@ -1,0 +1,7 @@
+{
+    "tableName": "dynamoMatches",
+    "partitionKeyName": "leagueId",
+    "partitionKeyType": "S",
+    "sortKeyName": "matchId",
+    "sortKeyType": "S"
+}

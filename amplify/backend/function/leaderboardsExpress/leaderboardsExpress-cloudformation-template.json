@@ -1,0 +1,377 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Description": "Lambda resource stack creation using Amplify CLI",
+	"Parameters": {
+		"env": {
+			"Type": "String"
+		},
+		"storagedynamoLeaguesName": {
+			"Type": "String",
+			"Default": "storagedynamoLeaguesName"
+		},
+		"storagedynamoLeaguesArn": {
+			"Type": "String",
+			"Default": "storagedynamoLeaguesArn"
+		},
+		"storagedynamoUserLeaguesName": {
+			"Type": "String",
+			"Default": "storagedynamoUserLeaguesName"
+		},
+		"storagedynamoUserLeaguesArn": {
+			"Type": "String",
+			"Default": "storagedynamoUserLeaguesArn"
+		},
+		"storagedynamoCompetitorsName": {
+			"Type": "String",
+			"Default": "storagedynamoCompetitorsName"
+		},
+		"storagedynamoCompetitorsArn": {
+			"Type": "String",
+			"Default": "storagedynamoCompetitorsArn"
+		},
+		"storagedynamoMatchesName": {
+			"Type": "String",
+			"Default": "storagedynamoMatchesName"
+		},
+		"storagedynamoMatchesArn": {
+			"Type": "String",
+			"Default": "storagedynamoMatchesArn"
+		},
+		"storagedynamoMatchContestantsName": {
+			"Type": "String",
+			"Default": "storagedynamoMatchContestantsName"
+		},
+		"storagedynamoMatchContestantsArn": {
+			"Type": "String",
+			"Default": "storagedynamoMatchContestantsArn"
+		}
+	},
+	"Conditions": {
+		"ShouldNotCreateEnvResources": {
+			"Fn::Equals": [
+				{
+					"Ref": "env"
+				},
+				"NONE"
+			]
+		}
+	},
+	"Resources": {
+		"LambdaFunction": {
+			"Type": "AWS::Lambda::Function",
+			"Metadata": {
+				"aws:asset:path": "./src",
+				"aws:asset:property": "Code"
+			},
+			"Properties": {
+				"Handler": "index.handler",
+				"FunctionName": {
+					"Fn::If": [
+						"ShouldNotCreateEnvResources",
+						"leaderboardsExpress",
+						{
+							"Fn::Join": [
+								"",
+								[
+									"leaderboardsExpress",
+									"-",
+									{
+										"Ref": "env"
+									}
+								]
+							]
+						}
+					]
+				},
+				"Environment": {
+					"Variables": {
+						"ENV": {
+							"Ref": "env"
+						},
+						"REGION": {
+							"Ref": "AWS::Region"
+						},
+						"STORAGE_DYNAMOLEAGUES_NAME": {
+							"Ref": "storagedynamoLeaguesName"
+						},
+						"STORAGE_DYNAMOLEAGUES_ARN": {
+							"Ref": "storagedynamoLeaguesArn"
+						},
+						"STORAGE_DYNAMOUSERLEAGUES_NAME": {
+							"Ref": "storagedynamoUserLeaguesName"
+						},
+						"STORAGE_DYNAMOUSERLEAGUES_ARN": {
+							"Ref": "storagedynamoUserLeaguesArn"
+						},
+						"STORAGE_DYNAMOCOMPETITORS_NAME": {
+							"Ref": "storagedynamoCompetitorsName"
+						},
+						"STORAGE_DYNAMOCOMPETITORS_ARN": {
+							"Ref": "storagedynamoCompetitorsArn"
+						},
+						"STORAGE_DYNAMOMATCHES_NAME": {
+							"Ref": "storagedynamoMatchesName"
+						},
+						"STORAGE_DYNAMOMATCHES_ARN": {
+							"Ref": "storagedynamoMatchesArn"
+						},
+						"STORAGE_DYNAMOMATCHCONTESTANTS_NAME": {
+							"Ref": "storagedynamoMatchContestantsName"
+						},
+						"STORAGE_DYNAMOMATCHCONTESTANTS_ARN": {
+							"Ref": "storagedynamoMatchContestantsArn"
+						}
+					}
+				},
+				"Role": {
+					"Fn::GetAtt": [
+						"LambdaExecutionRole",
+						"Arn"
+					]
+				},
+				"Runtime": "nodejs10.x",
+				"Timeout": "25",
+				"Code": {
+					"S3Bucket": "leaderboards-dev-20190728113401-deployment",
+					"S3Key": "amplify-builds/leaderboardsExpress-706464782f4d6e694d68-build.zip"
+				}
+			}
+		},
+		"LambdaExecutionRole": {
+			"Type": "AWS::IAM::Role",
+			"Properties": {
+				"RoleName": {
+					"Fn::If": [
+						"ShouldNotCreateEnvResources",
+						"leaderboardsLambdaRole46279191",
+						{
+							"Fn::Join": [
+								"",
+								[
+									"leaderboardsLambdaRole46279191",
+									"-",
+									{
+										"Ref": "env"
+									}
+								]
+							]
+						}
+					]
+				},
+				"AssumeRolePolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Principal": {
+								"Service": [
+									"lambda.amazonaws.com"
+								]
+							},
+							"Action": [
+								"sts:AssumeRole"
+							]
+						}
+					]
+				}
+			}
+		},
+		"lambdaexecutionpolicy": {
+			"DependsOn": [
+				"LambdaExecutionRole"
+			],
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "lambda-execution-policy",
+				"Roles": [
+					{
+						"Ref": "LambdaExecutionRole"
+					}
+				],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Action": [
+								"logs:CreateLogGroup",
+								"logs:CreateLogStream",
+								"logs:PutLogEvents"
+							],
+							"Resource": {
+								"Fn::Sub": [
+									"arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*",
+									{
+										"region": {
+											"Ref": "AWS::Region"
+										},
+										"account": {
+											"Ref": "AWS::AccountId"
+										},
+										"lambda": {
+											"Ref": "LambdaFunction"
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"AmplifyResourcesPolicy": {
+			"DependsOn": [
+				"LambdaExecutionRole"
+			],
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "amplify-lambda-execution-policy",
+				"Roles": [
+					{
+						"Ref": "LambdaExecutionRole"
+					}
+				],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Action": [
+								"dynamodb:Put*",
+								"dynamodb:Create*",
+								"dynamodb:BatchWriteItem",
+								"dynamodb:Get*",
+								"dynamodb:BatchGetItem",
+								"dynamodb:List*",
+								"dynamodb:Describe*",
+								"dynamodb:Scan",
+								"dynamodb:Query",
+								"dynamodb:Update*",
+								"dynamodb:RestoreTable*",
+								"dynamodb:Delete*"
+							],
+							"Resource": [
+								{
+									"Ref": "storagedynamoLeaguesArn"
+								}
+							]
+						},
+						{
+							"Effect": "Allow",
+							"Action": [
+								"dynamodb:Put*",
+								"dynamodb:Create*",
+								"dynamodb:BatchWriteItem",
+								"dynamodb:Get*",
+								"dynamodb:BatchGetItem",
+								"dynamodb:List*",
+								"dynamodb:Describe*",
+								"dynamodb:Scan",
+								"dynamodb:Query",
+								"dynamodb:Update*",
+								"dynamodb:RestoreTable*",
+								"dynamodb:Delete*"
+							],
+							"Resource": [
+								{
+									"Ref": "storagedynamoUserLeaguesArn"
+								}
+							]
+						},
+						{
+							"Effect": "Allow",
+							"Action": [
+								"dynamodb:Put*",
+								"dynamodb:Create*",
+								"dynamodb:BatchWriteItem",
+								"dynamodb:Get*",
+								"dynamodb:BatchGetItem",
+								"dynamodb:List*",
+								"dynamodb:Describe*",
+								"dynamodb:Scan",
+								"dynamodb:Query",
+								"dynamodb:Update*",
+								"dynamodb:RestoreTable*",
+								"dynamodb:Delete*"
+							],
+							"Resource": [
+								{
+									"Ref": "storagedynamoCompetitorsArn"
+								}
+							]
+						},
+						{
+							"Effect": "Allow",
+							"Action": [
+								"dynamodb:Put*",
+								"dynamodb:Create*",
+								"dynamodb:BatchWriteItem",
+								"dynamodb:Get*",
+								"dynamodb:BatchGetItem",
+								"dynamodb:List*",
+								"dynamodb:Describe*",
+								"dynamodb:Scan",
+								"dynamodb:Query",
+								"dynamodb:Update*",
+								"dynamodb:RestoreTable*",
+								"dynamodb:Delete*"
+							],
+							"Resource": [
+								{
+									"Ref": "storagedynamoMatchesArn"
+								}
+							]
+						},
+						{
+							"Effect": "Allow",
+							"Action": [
+								"dynamodb:Put*",
+								"dynamodb:Create*",
+								"dynamodb:BatchWriteItem",
+								"dynamodb:Get*",
+								"dynamodb:BatchGetItem",
+								"dynamodb:List*",
+								"dynamodb:Describe*",
+								"dynamodb:Scan",
+								"dynamodb:Query",
+								"dynamodb:Update*",
+								"dynamodb:RestoreTable*",
+								"dynamodb:Delete*"
+							],
+							"Resource": [
+								{
+									"Ref": "storagedynamoMatchContestantsArn"
+								}
+							]
+						}
+					]
+				}
+			}
+		}
+	},
+	"Outputs": {
+		"Name": {
+			"Value": {
+				"Ref": "LambdaFunction"
+			}
+		},
+		"Arn": {
+			"Value": {
+				"Fn::GetAtt": [
+					"LambdaFunction",
+					"Arn"
+				]
+			}
+		},
+		"Region": {
+			"Value": {
+				"Ref": "AWS::Region"
+			}
+		},
+		"LambdaExecutionRole": {
+			"Value": {
+				"Ref": "LambdaExecutionRole"
+			}
+		}
+	}
+}

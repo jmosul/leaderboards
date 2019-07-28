@@ -1,0 +1,89 @@
+{
+    "function": {
+        "leaderboardsExpress": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true,
+            "dependsOn": [
+                {
+                    "category": "storage",
+                    "resourceName": "dynamoLeagues",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "storage",
+                    "resourceName": "dynamoUserLeagues",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "storage",
+                    "resourceName": "dynamoCompetitors",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "storage",
+                    "resourceName": "dynamoMatches",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "storage",
+                    "resourceName": "dynamoMatchContestants",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ]
+        }
+    },
+    "api": {
+        "leaguesApi": {
+            "service": "API Gateway",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [
+                {
+                    "category": "function",
+                    "resourceName": "leaderboardsExpress",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ]
+        }
+    },
+    "storage": {
+        "dynamoLeagues": {
+            "service": "DynamoDB",
+            "providerPlugin": "awscloudformation"
+        },
+        "dynamoUserLeagues": {
+            "service": "DynamoDB",
+            "providerPlugin": "awscloudformation"
+        },
+        "dynamoCompetitors": {
+            "service": "DynamoDB",
+            "providerPlugin": "awscloudformation"
+        },
+        "dynamoMatches": {
+            "service": "DynamoDB",
+            "providerPlugin": "awscloudformation"
+        },
+        "dynamoMatchContestants": {
+            "service": "DynamoDB",
+            "providerPlugin": "awscloudformation"
+        }
+    }
+}

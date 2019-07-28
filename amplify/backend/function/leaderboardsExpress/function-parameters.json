@@ -1,0 +1,36 @@
+{
+    "permissions": {
+        "storage": {
+            "dynamoLeagues": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ],
+            "dynamoUserLeagues": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ],
+            "dynamoCompetitors": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ],
+            "dynamoMatches": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ],
+            "dynamoMatchContestants": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ]
+        }
+    }
+}
