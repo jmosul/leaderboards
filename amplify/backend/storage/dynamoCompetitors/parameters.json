@@ -1,0 +1,7 @@
+{
+    "tableName": "dynamoCompetitors",
+    "partitionKeyName": "leagueId",
+    "partitionKeyType": "S",
+    "sortKeyName": "competitorId",
+    "sortKeyType": "S"
+}
