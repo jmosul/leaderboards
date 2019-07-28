@@ -1,5 +1,29 @@
-# Leaderboards (wip)
+# app
 
-Serverless web application for tracking scores 
+## Project setup
+```
+npm install
+```
 
-Chance for me to have a play with AWS Cognito and DynamoDB
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Run your tests
+```
+npm run test
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).

@@ -3,27 +3,23 @@ const uuid = require('uuid');
 
 const Schema = dynamoose.Schema;
 
-const tableName = `${process.env.TABLE_PREFIX}-leagues`;
+const tableName = process.env.STORAGE_DYNAMOMATCHES_NAME;
 
-const leaguesSchema = new Schema({
-    leaguePool: {
+const matchSchema = new Schema({
+    leagueId: {
         type: String,
         hashKey: true,
     },
-    leagueId: {
+    matchId: {
         type: String,
         trim: true,
         rangeKey: true,
         default: uuid.v4
     },
-    name: {
-        type: String,
-        trim: true
-    }
 }, {
     timestamps: true
 });
 
-module.exports = dynamoose.model(tableName, leaguesSchema, {
+module.exports = dynamoose.model(tableName, matchSchema, {
     create: false
 });

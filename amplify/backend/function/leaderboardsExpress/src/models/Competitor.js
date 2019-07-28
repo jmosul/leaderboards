@@ -2,7 +2,7 @@ const dynamoose = require('dynamoose');
 
 const Schema = dynamoose.Schema;
 
-const tableName = `${process.env.TABLE_PREFIX}-competitors`;
+const tableName = process.env.STORAGE_DYNAMOCOMPETITORS_NAME;
 
 const competitorsSchema = new Schema({
     leagueId: {

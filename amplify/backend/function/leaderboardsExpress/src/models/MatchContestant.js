@@ -3,7 +3,7 @@ const uuid = require('uuid');
 
 const Schema = dynamoose.Schema;
 
-const tableName = `${process.env.TABLE_PREFIX}-match-contestants`;
+const tableName = process.env.STORAGE_DYNAMOMATCHCONTESTANTS_NAME;
 
 const matchContestantSchema = new Schema({
     leagueId: {
