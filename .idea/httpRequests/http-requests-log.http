@@ -1,3 +1,24 @@
+GET https://2va143uy53.execute-api.eu-west-1.amazonaws.com/dev/leagues
+Accept: application/json
+
+<> 2019-07-28T020013.502.json
+
+###
+
+GET https://2va143uy53.execute-api.eu-west-1.amazonaws.com/dev/leagues
+Accept: application/json
+
+<> 2019-07-28T015358.502.json
+
+###
+
+GET https://2va143uy53.execute-api.eu-west-1.amazonaws.com/dev/leagues
+Accept: application/json
+
+<> 2019-07-28T014835.502.json
+
+###
+
 GET http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/matches
 Accept: application/json
 
@@ -342,25 +363,6 @@ GET http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/matches
 Accept: application/json
 
 <> 2019-07-12T080149.503.txt
-
-###
-
-GET http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/matches
-Accept: application/json
-
-<> 2019-07-12T080054.503.txt
-
-###
-
-GET http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/matches
-Accept: application/json
-
-<> 2019-07-12T075852.503.txt
-
-###
-
-GET http://localhost:3000/leagues/5d53fda2-e835-452b-941f-e40c540ea56b/matches
-Accept: application/json
 
 ###
 
