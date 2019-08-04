@@ -1,4 +1,7 @@
 {
+    "identityPoolName": "leaderboards48066ade_identitypool_d94ed99b",
+    "allowUnauthenticatedIdentities": false,
+    "openIdLambdaRoleName": "leader48066ade_openid_lambda_role",
     "resourceNameTruncated": "leader48066ade",
     "userPoolName": "leaderboards48066ade_userpool_48066ade",
     "autoVerifiedAttributes": [
@@ -48,9 +51,8 @@
     "mfaLambdaRole": "leader48066ade_totp_lambda_role",
     "userpoolClientLambdaRole": "leader48066ade_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": true,
-    "openIdLambdaRoleName": "leader48066ade_openid_lambda_role",
     "resourceName": "leaderboards48066ade",
-    "authSelections": "userPoolOnly",
+    "authSelections": "identityPoolAndUserPool",
     "authRoleName": {
         "Ref": "AuthRoleName"
     },
@@ -69,7 +71,7 @@
             "Arn"
         ]
     },
-    "useDefault": "manual",
+    "useDefault": "default",
     "additionalQuestions": [],
     "dependsOn": [
         {
