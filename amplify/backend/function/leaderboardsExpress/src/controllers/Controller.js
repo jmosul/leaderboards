@@ -47,7 +47,9 @@ class Controller {
     error(data) {
         const json = JSON.stringify(data);
 
-        this.response.send(json);
+        this.response
+            .status(500)
+            .send(json);
 
         return true;
     }

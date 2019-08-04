@@ -8,10 +8,13 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import './registerServiceWorker';
+import 'buefy/dist/buefy.css';
 
 Vue.config.productionTip = false;
 
 Amplify.configure(config);
+
+Amplify.Logger.LOG_LEVEL = 'DEBUG';
 
 Vue.use(AmplifyPlugin, AmplifyModules);
 

@@ -7,14 +7,20 @@ class LeaguesController extends ResourceController {
 
     async index() {
         return await this._getUserLeagueIds().then(
-            async(leagueIds) => await League
-                .query({
-                    leaguePool: this.leaguePool,
-                    leagueId: { in: leagueIds }
-                })
-                .exec(
-                    (err, leagues) => this.respond(err, leagues)
-                ),
+            async(leagueIds) => {
+                if(leagueIds.length === 0) {
+                    this.send([]);
+                }
+
+                return await League
+                    .query({
+                        leaguePool: this.leaguePool,
+                        leagueId: { in: leagueIds }
+                    })
+                    .exec(
+                        (err, leagues) => this.respond(err, leagues)
+                    )
+            },
             (err) => this.error(err)
         )
     }

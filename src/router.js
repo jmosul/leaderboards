@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
-import SignIn from './views/SignIn.vue';
-import Protected from './views/Protected.vue';
+import Identity from './views/Identity.vue';
+import NotFound from './views/NotFound.vue';
 
 Vue.use(Router);
 
@@ -16,30 +16,29 @@ const router = new Router({
             component: Home
         },
         {
-            path: '/auth',
-            component: SignIn
+            path: '/identity',
+            component: Identity,
+            meta: {
+                signedOutOnly: true
+            }
         },
         {
-            path: '/protected',
-            component: Protected,
-            meta: {
-                requiresAuth: true
-            }
+            path: '*',
+            component: NotFound
         }
     ]
 });
 
 router.beforeResolve((to, from, next) => {
-    if (to.matched.some(record => record.meta.requiresAuth)) {
-        // let user;
+    if(to.path !== '*') {
         Vue.prototype.$Amplify.Auth.currentAuthenticatedUser().then(data => {
-            // if (data && data.signInUserSession) {
-            //     user = data;
-            // }
+            if (to.matched.some(record => record.meta.signedOutOnly)) {
+                next({path: '/'})
+            }
 
             next();
         }).catch((e) => next({
-            path: '/sign-in'
+            path: '/identity'
         }));
     }
 

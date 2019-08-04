@@ -7,8 +7,10 @@
     "functionName": "leaderboards48066adePreSignup",
     "parentStack": "auth",
     "triggerEnvs": "[]",
-    "triggerTemplate": "PreSignup.json.ejs",
+    "triggerDir": "/Users/james.osullivan/.nvm/versions/node/v8.11.3/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/utils/../triggers/PreSignup",
     "roleName": "leaderboards48066adePreSignup",
+    "triggerTemplate": "PreSignup.json.ejs",
+    "triggerEventPath": "PreSignup.event.json",
     "skipEdit": true,
     "resourceName": "leaderboards48066adePreSignup"
 }

@@ -1,18 +1,56 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div class="home">
+        <section class="panel">
+            <p class="panel-heading">
+                Your Leagues
+                <b-icon
+                    :v-if="isLoading"
+                    icon="volleyball-ball"
+                    size="is-small"
+                    pack="fas"
+                    custom-class="fa-spin"
+                ></b-icon>
+            </p>
+            <div class="panel-block">
+                <p class="control has-icons-left">
+                    <input
+                        class="input is-small"
+                        type="text"
+                        placeholder="Search"
+                        :disabled="isLoading"
+                    >
+                    <b-icon icon="search" size="is-small" pack="fas" class="is-left"></b-icon>
+                </p>
+            </div>
+            <a class="panel-block" v-for="(league, index) in leagues" :key="index">
+                {{league.name}}
+            </a>
+        </section>
+    </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+    import Vue from 'vue';
+    import Component from 'vue-class-component';
+    import {Icon} from 'buefy';
+    import LeaguesService from '../services/LeaguesService';
 
-export default {
-  name: 'home',
-  components: {
-    HelloWorld
-  }
-}
+    Vue.use(Icon);
+
+    @Component()
+    export default class Home extends Vue {
+        leagues = [
+            {
+                name: 'My League'
+            }
+        ];
+
+        isLoading = true;
+
+        mounted() {
+            LeaguesService.index()
+                .then((leagues) => console.log(leagues))
+                .catch((error) => console.log(error))
+        }
+    }
 </script>
