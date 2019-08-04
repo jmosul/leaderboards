@@ -21,6 +21,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+.ideas/http-requests-log.http
 
 #amplify
 amplify/\#current-cloud-backend
