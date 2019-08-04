@@ -1,0 +1,14 @@
+{
+    "trigger": true,
+    "modules": [
+        "custom"
+    ],
+    "parentResource": "leaderboards48066ade",
+    "functionName": "leaderboards48066adePreSignup",
+    "parentStack": "auth",
+    "triggerEnvs": "[]",
+    "triggerTemplate": "PreSignup.json.ejs",
+    "roleName": "leaderboards48066adePreSignup",
+    "skipEdit": true,
+    "resourceName": "leaderboards48066adePreSignup"
+}

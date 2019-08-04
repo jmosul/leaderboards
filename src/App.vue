@@ -1,29 +1,76 @@
+// src/components/App.vue
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id='app'>
+        <div  class='nav'>
+            <router-link tag="p" to="/">
+                <a>Home</a>
+            </router-link>
+            <router-link tag="p" to="/profile">
+                <a>Profile</a>
+            </router-link>
+            <router-link tag="p" to="/protected">
+                <a>Protected</a>
+            </router-link>
+            <router-link tag="p" to="/auth" v-if="!signedIn">
+                <a>Sign Up / Sign In</a>
+            </router-link>
+        </div>
+        <router-view></router-view>
+        <div class='sign-out'>
+            <amplify-sign-out v-if="signedIn"></amplify-sign-out>
+        </div>
     </div>
-    <router-view/>
-  </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+    import { AmplifyEventBus } from 'aws-amplify-vue'
+    import { Auth } from 'aws-amplify'
+
+    export default {
+        name: 'app',
+        data() {
+            return {
+                signedIn: false
+            }
+        },
+        beforeCreate() {
+            AmplifyEventBus.$on('authState', info => {
+                if (info === 'signedIn') {
+                    this.signedIn = true
+                    this.$router.push('/profile')
+                }
+                if (info === 'signedOut') {
+                    this.$router.push('/auth')
+                    this.signedIn = false
+                }
+            });
+
+            Auth.currentAuthenticatedUser()
+                .then(user => {
+                    this.signedIn = true
+                })
+                .catch(() => this.signedIn = false)
+        }
     }
-  }
-}
+</script>
+
+<style>
+    .nav {
+        display: flex;
+    }
+    .nav p {
+        padding: 0px 30px 0px 0px;
+        font-size: 18px;
+        color: #000;
+    }
+    .nav p:hover {
+        opacity: .7;
+    }
+    .nav p a {
+        text-decoration: none;
+    }
+    .sign-out {
+        width: 160px;
+        margin: 0 auto;
+    }
 </style>

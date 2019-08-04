@@ -15,17 +15,20 @@ Parameters:
   
   
   
+  
+  
+  functionleaderboards48066adePreSignupArn: 
+    Type: String
+    Default: functionleaderboards48066adePreSignupArn
+  
+  functionleaderboards48066adePreSignupName: 
+    Type: String
+    Default: functionleaderboards48066adePreSignupName
+  
+  
+  
 
     
-  identityPoolName:
-    Type: String
-                
-  allowUnauthenticatedIdentities:
-    Type: String
-            
-  openIdLambdaRoleName:
-    Type: String
-              
   resourceNameTruncated:
     Type: String
               
@@ -89,6 +92,9 @@ Parameters:
   userpoolClientSetAttributes:
     Type: String
             
+  openIdLambdaRoleName:
+    Type: String
+              
   resourceName:
     Type: String
               
@@ -102,6 +108,21 @@ Parameters:
     Type: CommaDelimitedList
               
   dependsOn:
+    Type: CommaDelimitedList
+      
+  triggers:
+    Type: String
+                
+  hostedUI:
+    Type: String
+            
+  PreSignup:
+    Type: String
+                    
+  parentStack:
+    Type: String
+                
+  permissions:
     Type: CommaDelimitedList
     
 Conditions:
@@ -157,6 +178,18 @@ Resources:
         
       
       
+      LambdaConfig:
+        
+        
+        
+        
+        
+        
+        
+          PreSignUp: !Ref functionleaderboards48066adePreSignupArn
+        
+        
+      
       
       AutoVerifiedAttributes: !Ref autoVerifiedAttributes
       
@@ -179,12 +212,35 @@ Resources:
         ExternalId: leader48066ade_role_external_id
     
   
+    
+    
+  
+    
+    
+  
+  
+  UserPoolPreSignupLambdaInvokePermission: 
+    Type: "AWS::Lambda::Permission"
+    DependsOn: UserPool
+    Properties: 
+      Action: "lambda:invokeFunction"
+      Principal: "cognito-idp.amazonaws.com"
+      FunctionName: !Ref functionleaderboards48066adePreSignupName
+      SourceArn: !GetAtt UserPool.Arn
+   
+    
+  # Updating lambda role with permissions to Cognito
+  
+  
   UserPoolClientWeb:
   # Created provide application access to user pool
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
       ClientName: leader48066ade_app_clientWeb
+      
+      ReadAttributes: !Ref userpoolClientReadAttributes
+      WriteAttributes: !Ref userpoolClientWriteAttributes
       
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
       UserPoolId: !Ref UserPool
@@ -195,6 +251,9 @@ Resources:
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
       ClientName: !Ref userpoolClientName
+      
+      ReadAttributes: !Ref userpoolClientReadAttributes
+      WriteAttributes: !Ref userpoolClientWriteAttributes
       
       GenerateSecret: !Ref userpoolClientGenerateSecret
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
@@ -309,50 +368,8 @@ Resources:
 
   
     
-  # BEGIN IDENTITY POOL RESOURCES
-  
- 
-  IdentityPool:
-  # Always created
-    Type: AWS::Cognito::IdentityPool
-    Properties: 
-      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'leaderboards48066ade_identitypool_48066ade', !Join ['',['leaderboards48066ade_identitypool_48066ade', '__', !Ref env]]]
-      
-      CognitoIdentityProviders:
-        - ClientId:  !Ref UserPoolClient
-          ProviderName: !Sub
-            - cognito-idp.${region}.amazonaws.com/${client}
-            - { region: !Ref "AWS::Region",  client: !Ref UserPool}
-        - ClientId:  !Ref UserPoolClientWeb
-          ProviderName: !Sub
-            - cognito-idp.${region}.amazonaws.com/${client}
-            - { region: !Ref "AWS::Region",  client: !Ref UserPool}
-            
-      AllowUnauthenticatedIdentities: !Ref allowUnauthenticatedIdentities
-       
-       
-    DependsOn: UserPoolClientInputs 
-    
-  
-  IdentityPoolRoleMap:
-  # Created to map Auth and Unauth roles to the identity pool
-  # Depends on Identity Pool for ID ref
-    Type: AWS::Cognito::IdentityPoolRoleAttachment
-    Properties: 
-      IdentityPoolId: !Ref IdentityPool
-      Roles:
-          unauthenticated: !Ref unauthRoleArn
-          authenticated: !Ref authRoleArn
-    DependsOn: IdentityPool
-  
 
 Outputs :
-  
-  IdentityPoolId:
-    Value: !Ref 'IdentityPool'
-    Description:  Id for the identity pool
-  IdentityPoolName:
-    Value: !GetAtt IdentityPool.Name 
   
   
   
