@@ -1,9 +1,8 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from './views/Home.vue'
-import SignIn from './views/SignIn.vue'
-import Protected from './views/Protected.vue'
-import SignUp from './views/SignUp';
+import Vue from 'vue';
+import Router from 'vue-router';
+import Home from './views/Home.vue';
+import SignIn from './views/SignIn.vue';
+import Protected from './views/Protected.vue';
 
 Vue.use(Router);
 
@@ -17,12 +16,8 @@ const router = new Router({
             component: Home
         },
         {
-            path: '/sign-in',
+            path: '/auth',
             component: SignIn
-        },
-        {
-            path: '/sign-up',
-            component: SignUp
         },
         {
             path: '/protected',
@@ -35,22 +30,20 @@ const router = new Router({
 });
 
 router.beforeResolve((to, from, next) => {
-    if(to.matched.some(record => record.meta.requiresAuth)) {
-        let user;
-
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        // let user;
         Vue.prototype.$Amplify.Auth.currentAuthenticatedUser().then(data => {
-            if(data && data.signInUserSession) {
-                user = data;
-            }
+            // if (data && data.signInUserSession) {
+            //     user = data;
+            // }
 
-            next()
-        }).catch((e) => {
-            next({
-                path: '/sign-in'
-            });
-        });
+            next();
+        }).catch((e) => next({
+            path: '/sign-in'
+        }));
     }
-    next()
+
+    next();
 });
 
 export default router;

@@ -20,7 +20,8 @@ module.exports = {
                 'ignores': []
             }
         ],
-        'space-before-function-paren': ['error', 'never']
+        'space-before-function-paren': ['error', 'never'],
+        'no-return-assign': 'off'
     },
     'overrides': [
         {
@@ -31,6 +32,10 @@ module.exports = {
         }
     ],
     parserOptions: {
-        parser: 'babel-eslint'
+        parser: 'babel-eslint',
+        ecmaVersion: 2015,
+        ecmaFeatures: {
+            legacyDecorators: true
+        }
     }
 };
