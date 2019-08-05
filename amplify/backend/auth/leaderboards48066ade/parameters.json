@@ -1,5 +1,5 @@
 {
-    "identityPoolName": "leaderboards48066ade_identitypool_48066ade",
+    "identityPoolName": "leaderboards48066ade_identitypool_d94ed99b",
     "allowUnauthenticatedIdentities": false,
     "openIdLambdaRoleName": "leader48066ade_openid_lambda_role",
     "resourceNameTruncated": "leader48066ade",
@@ -28,11 +28,29 @@
         "email"
     ],
     "userpoolClientReadAttributes": [
-        "email"
+        "address",
+        "birthdate",
+        "email",
+        "family_name",
+        "middle_name",
+        "gender",
+        "locale",
+        "given_name",
+        "name",
+        "nickname",
+        "phone_number",
+        "preferred_username",
+        "picture",
+        "profile",
+        "updated_at",
+        "website",
+        "zoneinfo",
+        "email_verified",
+        "phone_number_verified"
     ],
     "mfaLambdaRole": "leader48066ade_totp_lambda_role",
     "userpoolClientLambdaRole": "leader48066ade_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": false,
+    "userpoolClientSetAttributes": true,
     "resourceName": "leaderboards48066ade",
     "authSelections": "identityPoolAndUserPool",
     "authRoleName": {
@@ -55,5 +73,22 @@
     },
     "useDefault": "default",
     "additionalQuestions": [],
-    "dependsOn": []
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "leaderboards48066adePreSignup",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        }
+    ],
+    "triggers": "{\"PreSignup\":[\"custom\"]}",
+    "hostedUI": false,
+    "PreSignup": "leaderboards48066adePreSignup",
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": []
 }

@@ -1,102 +1,117 @@
 {
-	"function": {
-		"leaderboardsExpress": {
-			"service": "Lambda",
-			"providerPlugin": "awscloudformation",
-			"build": true,
-			"dependsOn": [
-				{
-					"category": "storage",
-					"resourceName": "dynamoLeagues",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				},
-				{
-					"category": "storage",
-					"resourceName": "dynamoUserLeagues",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				},
-				{
-					"category": "storage",
-					"resourceName": "dynamoCompetitors",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				},
-				{
-					"category": "storage",
-					"resourceName": "dynamoMatches",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				},
-				{
-					"category": "storage",
-					"resourceName": "dynamoMatchContestants",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				}
-			]
-		}
-	},
-	"api": {
-		"leaguesApi": {
-			"service": "API Gateway",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": [
-				{
-					"category": "function",
-					"resourceName": "leaderboardsExpress",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				}
-			]
-		}
-	},
-	"storage": {
-		"dynamoLeagues": {
-			"service": "DynamoDB",
-			"providerPlugin": "awscloudformation"
-		},
-		"dynamoUserLeagues": {
-			"service": "DynamoDB",
-			"providerPlugin": "awscloudformation"
-		},
-		"dynamoCompetitors": {
-			"service": "DynamoDB",
-			"providerPlugin": "awscloudformation"
-		},
-		"dynamoMatches": {
-			"service": "DynamoDB",
-			"providerPlugin": "awscloudformation"
-		},
-		"dynamoMatchContestants": {
-			"service": "DynamoDB",
-			"providerPlugin": "awscloudformation"
-		}
-	},
-	"hosting": {
-		"S3AndCloudFront": {
-			"service": "S3AndCloudFront",
-			"providerPlugin": "awscloudformation"
-		}
-	},
-	"auth": {
-		"leaderboards48066ade": {
-			"service": "Cognito",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": []
-		}
-	}
+    "function": {
+        "leaderboardsExpress": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true,
+            "dependsOn": [
+                {
+                    "category": "storage",
+                    "resourceName": "dynamoLeagues",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "storage",
+                    "resourceName": "dynamoUserLeagues",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "storage",
+                    "resourceName": "dynamoCompetitors",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "storage",
+                    "resourceName": "dynamoMatches",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "storage",
+                    "resourceName": "dynamoMatchContestants",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ]
+        },
+        "leaderboards48066adePreSignup": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true
+        }
+    },
+    "api": {
+        "leaguesApi": {
+            "service": "API Gateway",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [
+                {
+                    "category": "function",
+                    "resourceName": "leaderboardsExpress",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                }
+            ]
+        }
+    },
+    "storage": {
+        "dynamoLeagues": {
+            "service": "DynamoDB",
+            "providerPlugin": "awscloudformation"
+        },
+        "dynamoUserLeagues": {
+            "service": "DynamoDB",
+            "providerPlugin": "awscloudformation"
+        },
+        "dynamoCompetitors": {
+            "service": "DynamoDB",
+            "providerPlugin": "awscloudformation"
+        },
+        "dynamoMatches": {
+            "service": "DynamoDB",
+            "providerPlugin": "awscloudformation"
+        },
+        "dynamoMatchContestants": {
+            "service": "DynamoDB",
+            "providerPlugin": "awscloudformation"
+        }
+    },
+    "hosting": {
+        "S3AndCloudFront": {
+            "service": "S3AndCloudFront",
+            "providerPlugin": "awscloudformation"
+        }
+    },
+    "auth": {
+        "leaderboards48066ade": {
+            "service": "Cognito",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [
+                {
+                    "category": "function",
+                    "resourceName": "leaderboards48066adePreSignup",
+                    "triggerProvider": "Cognito",
+                    "attributes": [
+                        "Arn",
+                        "Name"
+                    ]
+                }
+            ]
+        }
+    }
 }

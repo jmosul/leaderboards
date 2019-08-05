@@ -13,6 +13,10 @@ class Controller {
         return this.request.body;
     }
 
+    get apiEvent() {
+        return this.request.apiGateway.event;
+    }
+
     /**
      * @return {string|undefined}
      */
@@ -28,8 +32,19 @@ class Controller {
     }
 
     get userId() {
-        // TODO replace with cognito current user
-        return 'jmosul';
+        if(!this.cognitoUser) {
+            const provider = this.apiEvent.requestContext.identity.cognitoAuthenticationProvider || '';
+
+            const providerParts = provider.split('CognitoSignIn:');
+
+            if(providerParts.length !== 2) {
+                throw {error: 400, message: 'No User Provider'};
+            }
+
+            this.cognitoUser = providerParts[1];
+        }
+
+        return this.cognitoUser;
     }
 
     respond(err, data) {
@@ -37,7 +52,11 @@ class Controller {
     }
 
     send(data) {
-        const json = JSON.stringify(data);
+        const response = {
+            data
+        };
+
+        const json = JSON.stringify(response);
 
         this.response.send(json);
 
@@ -45,11 +64,11 @@ class Controller {
     }
 
     error(data) {
-        const json = JSON.stringify(data);
+        console.log( 'ERRORR' );
 
-        this.response.send(json);
+        this.response.status(500);
 
-        return true;
+        return this.send(data);
     }
 
     static async handle(method, request, response) {

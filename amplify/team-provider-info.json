@@ -13,6 +13,9 @@
         "categories": {
             "auth": {
                 "leaderboards48066ade": {}
+            },
+            "function": {
+                "leaderboards48066adePreSignup": {}
             }
         }
     }

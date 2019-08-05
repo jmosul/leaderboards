@@ -4,7 +4,14 @@
             "name": "/leagues",
             "lambdaFunction": "leaderboardsExpress",
             "privacy": {
-                "open": true
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
             }
         }
     ],
@@ -16,7 +23,7 @@
         }
     ],
     "privacy": {
-        "auth": 0,
+        "auth": 1,
         "unauth": 0,
         "authRoleName": "leaderboards-dev-20190728113401-authRole",
         "unAuthRoleName": "leaderboards-dev-20190728113401-unauthRole"
@@ -31,5 +38,5 @@
             ]
         }
     ],
-    "uuid": "a68ef838"
+    "uuid": "ac8b31d4"
 }

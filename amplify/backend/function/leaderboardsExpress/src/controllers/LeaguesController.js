@@ -6,17 +6,17 @@ const UserLeagues = require('../models/UserLeagues');
 class LeaguesController extends ResourceController {
 
     async index() {
-        return await this._getUserLeagueIds().then(
-            async(leagueIds) => await League
-                .query({
-                    leaguePool: this.leaguePool,
-                    leagueId: { in: leagueIds }
-                })
-                .exec(
-                    (err, leagues) => this.respond(err, leagues)
-                ),
-            (err) => this.error(err)
-        )
+        const leagueIds = await this._getUserLeagueIds().then(
+            (leagueIds) => leagueIds,
+            (error) => {
+                throw error
+            }
+        );
+
+        return await this._getLeaguesByIds(leagueIds).then(
+            (leagues) => this.send(leagues),
+            (error) => this.error(error)
+        );
     }
 
     async show() {
@@ -31,6 +31,7 @@ class LeaguesController extends ResourceController {
 
     async store() {
         const name = this.request.body.name;
+        const icon = this.request.body.icon;
 
         if(!name || name.length === 0) {
             return this.error({
@@ -42,28 +43,55 @@ class LeaguesController extends ResourceController {
         return await League.create(
             {
                 leaguePool: this.leaguePool,
-                name
+                name,
+                icon
             },
             (err, league) => this.respond(err, league)
         );
     }
 
+    async _getLeaguesByIds(leagueIds) {
+        return new Promise((resolve, reject) => {
+
+        if(!leagueIds || leagueIds.length === 0) {
+            resolve([]);
+        }
+
+        League.query('leaguePool')
+            .eq(this.leaguePool)
+            .where(leagueId)
+            .in(leagueIds)
+            .exec(
+                (err, leagues) => {
+                    if(err) {
+                        reject(err);
+                    }
+
+                    resolve(leagues);
+                }
+            );
+        });
+    }
+
     async _getUserLeagueIds() {
         const userId = this.userId;
 
-        return await UserLeagues
-            .query('userId')
-            .eq(userId)
-            .exec(async(err, userLeagues) => {
+        return new Promise((resolve, reject) => {
+            UserLeagues.query(
+                {
+                    userId: { eq: userId }
+                },
+                (err, userLeagues) => {
                     if(err) {
-                        throw err;
+                        reject(err);
                     }
 
-                    return userLeagues.map(
-                        (userLeague) => userLeague.leagueId
-                    );
+                    const leagueIds = userLeagues.map((userLeague) => userLeague.leagueId);
+
+                    resolve(leagueIds);
                 }
             );
+        });
     }
 }
 

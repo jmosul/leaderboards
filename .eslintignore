@@ -1,0 +1,3 @@
+node_modules
+amplify
+/src/aws-exports.js

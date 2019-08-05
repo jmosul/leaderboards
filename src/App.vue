@@ -1,29 +1,46 @@
+// src/components/App.vue
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="app">
+        <app-header></app-header>
+        <router-view></router-view>
+        <app-footer></app-footer>
     </div>
-    <router-view/>
-  </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+    import {AmplifyEventBus} from 'aws-amplify-vue';
+    import {Auth} from 'aws-amplify';
+    import Vue from 'vue';
+    import Component from 'vue-class-component';
+    import AppHeader from './components/AppHeader';
+    import AppFooter from './components/AppFooter';
+
+    @Component({
+        components: {
+            AppFooter,
+            AppHeader
+        }
+    })
+    export default class App extends Vue {
+        beforeCreate() {
+            AmplifyEventBus.$on('authState', info => {
+                if (info === 'signedIn') {
+                    this.signedIn = true;
+                }
+
+                if (info === 'signedOut') {
+                    this.$router.push('/auth');
+                    this.signedIn = false;
+                }
+            });
+
+            Auth.currentAuthenticatedUser()
+                .then(user => this.signedIn = true)
+                .catch(() => this.signedIn = false);
+        }
     }
-  }
-}
+</script>
+
+<style scoped>
+
 </style>

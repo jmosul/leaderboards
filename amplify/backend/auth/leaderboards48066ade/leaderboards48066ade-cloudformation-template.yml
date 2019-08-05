@@ -15,6 +15,18 @@ Parameters:
   
   
   
+  
+  
+  functionleaderboards48066adePreSignupArn: 
+    Type: String
+    Default: functionleaderboards48066adePreSignupArn
+  
+  functionleaderboards48066adePreSignupName: 
+    Type: String
+    Default: functionleaderboards48066adePreSignupName
+  
+  
+  
 
     
   identityPoolName:
@@ -103,6 +115,21 @@ Parameters:
               
   dependsOn:
     Type: CommaDelimitedList
+      
+  triggers:
+    Type: String
+                
+  hostedUI:
+    Type: String
+            
+  PreSignup:
+    Type: String
+                    
+  parentStack:
+    Type: String
+                
+  permissions:
+    Type: CommaDelimitedList
     
 Conditions:
   ShouldNotCreateEnvResources: !Equals [ !Ref env, NONE ]
@@ -157,6 +184,18 @@ Resources:
         
       
       
+      LambdaConfig:
+        
+        
+        
+        
+        
+        
+        
+          PreSignUp: !Ref functionleaderboards48066adePreSignupArn
+        
+        
+      
       
       AutoVerifiedAttributes: !Ref autoVerifiedAttributes
       
@@ -179,12 +218,35 @@ Resources:
         ExternalId: leader48066ade_role_external_id
     
   
+    
+    
+  
+    
+    
+  
+  
+  UserPoolPreSignupLambdaInvokePermission: 
+    Type: "AWS::Lambda::Permission"
+    DependsOn: UserPool
+    Properties: 
+      Action: "lambda:invokeFunction"
+      Principal: "cognito-idp.amazonaws.com"
+      FunctionName: !Ref functionleaderboards48066adePreSignupName
+      SourceArn: !GetAtt UserPool.Arn
+   
+    
+  # Updating lambda role with permissions to Cognito
+  
+  
   UserPoolClientWeb:
   # Created provide application access to user pool
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
       ClientName: leader48066ade_app_clientWeb
+      
+      ReadAttributes: !Ref userpoolClientReadAttributes
+      WriteAttributes: !Ref userpoolClientWriteAttributes
       
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
       UserPoolId: !Ref UserPool
@@ -195,6 +257,9 @@ Resources:
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
       ClientName: !Ref userpoolClientName
+      
+      ReadAttributes: !Ref userpoolClientReadAttributes
+      WriteAttributes: !Ref userpoolClientWriteAttributes
       
       GenerateSecret: !Ref userpoolClientGenerateSecret
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
@@ -316,7 +381,7 @@ Resources:
   # Always created
     Type: AWS::Cognito::IdentityPool
     Properties: 
-      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'leaderboards48066ade_identitypool_48066ade', !Join ['',['leaderboards48066ade_identitypool_48066ade', '__', !Ref env]]]
+      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'leaderboards48066ade_identitypool_d94ed99b', !Join ['',['leaderboards48066ade_identitypool_d94ed99b', '__', !Ref env]]]
       
       CognitoIdentityProviders:
         - ClientId:  !Ref UserPoolClient
