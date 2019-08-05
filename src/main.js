@@ -14,7 +14,7 @@ Vue.config.productionTip = false;
 
 Amplify.configure(config);
 
-Amplify.Logger.LOG_LEVEL = 'DEBUG';
+// Amplify.Logger.LOG_LEVEL = 'DEBUG';
 
 Vue.use(AmplifyPlugin, AmplifyModules);
 

@@ -49,7 +49,11 @@
 
         mounted() {
             LeaguesService.index()
-                .then((leagues) => console.log(leagues))
+                .then((leagues) => {
+                    this.leagues = leagues;
+                    console.log(leagues);
+                    this.isLoading = false;
+                })
                 .catch((error) => console.log(error))
         }
     }
