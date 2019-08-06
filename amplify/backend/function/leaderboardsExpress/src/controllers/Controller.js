@@ -64,8 +64,6 @@ class Controller {
     }
 
     error(data) {
-        console.log( 'ERRORR' );
-
         this.response.status(500);
 
         return this.send(data);

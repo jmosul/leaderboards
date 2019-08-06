@@ -2,7 +2,7 @@
 <template>
     <div class="app">
         <app-header></app-header>
-        <router-view></router-view>
+        <router-view class="container"></router-view>
         <app-footer></app-footer>
     </div>
 </template>
@@ -42,5 +42,4 @@
 </script>
 
 <style scoped>
-
 </style>

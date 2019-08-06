@@ -109,7 +109,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "leaderboards-dev-20190728113401-deployment",
-					"S3Key": "amplify-builds/leaderboards48066adePreSignup-3738613948303454664c-build.zip"
+					"S3Key": "amplify-builds/leaderboards48066adePreSignup-7451346b446d48764141-build.zip"
 				}
 			}
 		},

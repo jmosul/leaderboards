@@ -20,6 +20,7 @@ module.exports = {
                 'ignores': []
             }
         ],
+        'comma-dangle': ['error', 'always-multiline'],
         'space-before-function-paren': ['error', 'never'],
         'no-return-assign': 'off'
     },

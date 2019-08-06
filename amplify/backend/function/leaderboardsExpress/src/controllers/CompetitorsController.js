@@ -16,7 +16,6 @@ class CompetitorsController extends ResourceController {
     }
 
     async store() {
-        // TODO replace with cognito current user
         const name = this.request.body.name;
         const userId = this.userId;
 
