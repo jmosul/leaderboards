@@ -2,9 +2,10 @@ import {API} from 'aws-amplify';
 
 export default class ApiProvider {
     apiName = 'leaguesApi';
+    _basePath = '/leagues';
 
     get basePath() {
-        return '/leagues';
+        return this._basePath;
     }
 
     /**
@@ -18,7 +19,7 @@ export default class ApiProvider {
             queryStringParameters
         };
 
-        return await API.get(this.apiName, this._buildFullPath(path), config);
+        return API.get(this.apiName, this._buildFullPath(path), config);
     }
 
     /**
@@ -32,7 +33,7 @@ export default class ApiProvider {
             body
         };
 
-        return await API.post(this.apiName, this._buildFullPath(path), config);
+        return API.post(this.apiName, this._buildFullPath(path), config);
     }
 
     /**
@@ -46,7 +47,7 @@ export default class ApiProvider {
             body
         };
 
-        return await API.put(this.apiName, this._buildFullPath(path), config);
+        return API.put(this.apiName, this._buildFullPath(path), config);
     }
 
     /**
@@ -55,7 +56,7 @@ export default class ApiProvider {
      * @private
      */
     async _goDelete(path) {
-        return await API.delete(this.apiName, this._buildFullPath(path), config);
+        return API.delete(this.apiName, this._buildFullPath(path));
     }
 
     /**

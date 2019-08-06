@@ -1,12 +1,16 @@
 <template>
     <header>
-        <b-navbar>
+        <b-navbar
+            type="is-light"
+        >
             <template slot="brand">
                 <b-navbar-item href="/">
                     <img
                         src="../assets/favicon-32x32.png"
                         alt="Leaderboards"
                     >
+                    &nbsp;
+<!--                    <h1 class="is-size-4">Title here</h1>-->
                 </b-navbar-item>
             </template>
             <template slot="start">
