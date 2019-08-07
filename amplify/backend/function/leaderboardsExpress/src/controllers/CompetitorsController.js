@@ -16,7 +16,7 @@ class CompetitorsController extends ResourceController {
     }
 
     async store() {
-        const name = this.request.body.name;
+        const name = this.body.name;
         const userId = this.userId;
 
         if(!name || name.length === 0) {

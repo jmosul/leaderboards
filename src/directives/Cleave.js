@@ -10,5 +10,5 @@ export default {
     unbind(el) {
         const input = el.querySelector('input');
         input._vCleave.destroy();
-    }
+    },
 };

@@ -14,16 +14,6 @@ const userLeaguesSchema = new Schema({
         trim: true,
         rangeKey: true,
     },
-    name: {
-        type: String,
-        trim: true,
-        required: true
-    },
-    icon: {
-        type: String,
-        trim: true,
-        default: 'list-ol'
-    }
 }, {
     timestamps: true
 });

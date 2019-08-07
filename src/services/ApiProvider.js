@@ -8,6 +8,12 @@ export default class ApiProvider {
         return this._basePath;
     }
 
+    get defaultHeaders() {
+        return {
+            'content-type': 'application/json',
+        };
+    }
+
     /**
      * @param path
      * @param queryStringParameters
@@ -15,9 +21,7 @@ export default class ApiProvider {
      * @protected
      */
     async _doGet(path, queryStringParameters = {}) {
-        const config = {
-            queryStringParameters
-        };
+        const config = Object.assign({queryStringParameters}, this.defaultHeaders);
 
         return API.get(this.apiName, this._buildFullPath(path), config);
     }
@@ -29,9 +33,7 @@ export default class ApiProvider {
      * @private
      */
     async _doPost(path, body = {}) {
-        const config = {
-            body
-        };
+        const config = Object.assign({body}, this.defaultHeaders);
 
         return API.post(this.apiName, this._buildFullPath(path), config);
     }
@@ -43,9 +45,7 @@ export default class ApiProvider {
      * @private
      */
     async _doPut(path, body = {}) {
-        const config = {
-            body
-        };
+        const config = Object.assign({body}, this.defaultHeaders);
 
         return API.put(this.apiName, this._buildFullPath(path), config);
     }
@@ -56,7 +56,9 @@ export default class ApiProvider {
      * @private
      */
     async _goDelete(path) {
-        return API.delete(this.apiName, this._buildFullPath(path));
+        const config = Object.assign({}, this.defaultHeaders);
+
+        return API.delete(this.apiName, this._buildFullPath(path), config);
     }
 
     /**

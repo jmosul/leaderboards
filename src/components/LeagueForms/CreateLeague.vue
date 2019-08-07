@@ -55,6 +55,7 @@
     import {Button, Field, Icon, Input, Radio} from 'buefy';
     import LeagueForm from './LeagueForm';
     import LeaguesService from '../../services/LeaguesService';
+    import {Getter} from 'vuex-class';
 
     Vue.use(Button);
     Vue.use(Radio);
@@ -64,6 +65,8 @@
 
     @Component({})
     export default class CreateLeague extends LeagueForm {
+        @Getter('leaguePool') getLeaguePool;
+
         icons = [
             'list-ol',
             'table-tennis',
@@ -76,17 +79,13 @@
         league = {
             name: '',
             icon: 'list-ol',
-            leaguePool: ''
+            leaguePool: '',
         };
-
-        get leaguePool() {
-            return this.$store.getters.leaguePool;
-        }
 
         handleCreate() {
             this.isCreating = true;
 
-            this.league.leaguePool = this.leaguePool;
+            this.league.leaguePool = this.getLeaguePool;
 
             return LeaguesService.store(this.league).then(
                 (league) => {
@@ -97,8 +96,7 @@
 
                     return this.joinLeague();
                 },
-                (error) => {
-                    console.log(error);
+                () => {
                     this.isCreating = false;
                 }
             );

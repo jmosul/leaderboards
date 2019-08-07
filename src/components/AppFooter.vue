@@ -10,7 +10,7 @@
 
     @Component({
     })
-    export default class AppFooter {
+    export default class AppFooter extends Vue {
 
     }
 </script>

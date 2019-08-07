@@ -26,12 +26,12 @@ const store = new Vuex.Store({
     mutations: {},
     actions: {},
     getters: {
-        leaguePool: (state) => state.leaguePool
-    }
+        leaguePool: (state) => state.leaguePool,
+    },
 });
 
 new Vue({
     router,
     store,
-    render: h => h(App)
+    render: h => h(App),
 }).$mount('#app');

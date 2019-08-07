@@ -2,7 +2,6 @@ import LeagueApiProvider from './LeagueApiProvider';
 import Competitor from '../models/Competitor';
 
 class CompetitorsService extends LeagueApiProvider {
-
     /**
      * @param {object} data
      * @return {Promise<Competitor>}
@@ -13,7 +12,7 @@ class CompetitorsService extends LeagueApiProvider {
             (error) => {
                 throw error;
             }
-        )
+        );
     }
 
     static get _competitorsPath() {
