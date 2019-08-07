@@ -3,7 +3,7 @@ import uuidRegex from '../../utils/uuidRegex';
 import CompetitorsService from '../../services/CompetitorsService';
 
 export default class LeagueForm extends Vue {
-    leagueId = '5d53fda2-e835-452b-941f-e40c540ea56b';
+    leagueId = '';
 
     isJoining = false;
     isCreating = false;

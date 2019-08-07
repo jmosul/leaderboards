@@ -13,32 +13,32 @@ const router = new Router({
         {
             path: '/',
             name: 'home',
-            component: Home
+            component: Home,
         },
         {
             path: '/identity',
             component: Identity,
             meta: {
-                signedOutOnly: true
-            }
+                signedOutOnly: true,
+            },
         },
         {
             path: '*',
-            component: NotFound
-        }
-    ]
+            component: NotFound,
+        },
+    ],
 });
 
 router.beforeResolve((to, from, next) => {
-    if(to.path !== '*') {
+    if (to.path !== '*') {
         Vue.prototype.$Amplify.Auth.currentAuthenticatedUser().then(data => {
             if (to.matched.some(record => record.meta.signedOutOnly)) {
-                next({path: '/'})
+                next({path: '/'});
             }
 
             next();
         }).catch((e) => next({
-            path: '/identity'
+            path: '/identity',
         }));
     }
 

@@ -1,9 +1,11 @@
 <template>
-    <div class="home">
-        <section class="panel">
-            <p class="panel-heading has-background-info has-text-light">
-                Your Leagues
-                <span v-if="isLoading">
+    <div class="home columns is-desktop">
+        <section class="column is-two-thirds">
+            <div class="panel">
+
+                <p class="panel-heading has-background-info has-text-light">
+                    Your Leagues
+                    <span v-if="isLoading">
                     <b-icon
                         custom-class="fa-spin"
                         icon="volleyball-ball"
@@ -11,32 +13,40 @@
                         size="is-small"
                     ></b-icon>
                 </span>
-            </p>
-            <div class="panel-block">
-                <p class="control has-icons-left">
-                    <input
-                        :disabled="isLoading"
-                        class="input is-small"
-                        placeholder="Search"
-                        type="text"
-                    >
-                    <b-icon icon="search" size="is-small" pack="fas" class="is-left"></b-icon>
                 </p>
+                <div class="panel-block">
+                    <p class="control has-icons-left">
+                        <input
+                            :disabled="isLoading"
+                            class="input is-small"
+                            placeholder="Search"
+                            type="text"
+                        >
+                        <b-icon icon="search" size="is-small" pack="fas" class="is-left"></b-icon>
+                    </p>
+                </div>
+                <a class="panel-block" v-for="(league, index) in leagues" :key="index">
+                    <b-icon v-bind:icon="league.icon" size="is-small" pack="fas" class="is-left"></b-icon>
+                    {{league.name}}
+                </a>
+                <div class="panel-block has-text-grey" v-if="hasNoLeagues">
+                    You have not entered any Leagues
+                </div>
             </div>
-            <a class="panel-block" v-for="(league, index) in leagues" :key="index">
-                <b-icon v-bind:icon="league.icon" size="is-small" pack="fas" class="is-left"></b-icon>
-                {{league.name}}
-            </a>
-            <div class="panel-block has-text-grey" v-if="hasNoLeagues">
-                You have not entered any Leagues
-            </div>
+        </section>
 
-            <div class="panel-block">
-                <join-league></join-league>
-            </div>
-
-            <div class="panel-block">
-                <create-league></create-league>
+        <section class="column is-one-third">
+            <div class="panel">
+                <div class="panel-block">
+                    <b-tabs position="is-centered" class="is-fullwidth">
+                        <b-tab-item label="Join League">
+                            <join-league></join-league>
+                        </b-tab-item>
+                        <b-tab-item label="Create League">
+                            <create-league></create-league>
+                        </b-tab-item>
+                    </b-tabs>
+                </div>
             </div>
         </section>
     </div>
@@ -45,12 +55,14 @@
 <script>
     import Vue from 'vue';
     import Component from 'vue-class-component';
-    import {Icon} from 'buefy';
+    import {Icon, Tabs} from 'buefy';
     import LeaguesService from '../services/LeaguesService';
     import JoinLeague from '../components/LeagueForms/JoinLeague';
     import CreateLeague from '../components/LeagueForms/CreateLeague';
+    import {Getter} from 'vuex-class';
 
     Vue.use(Icon);
+    Vue.use(Tabs);
 
     @Component({
         components: {
@@ -59,6 +71,8 @@
         },
     })
     export default class Home extends Vue {
+        @Getter('leaguePool') leaguePool;
+
         leagues = [];
 
         loadingLeagues = true;
@@ -72,7 +86,7 @@
         }
 
         mounted() {
-            LeaguesService.index()
+            LeaguesService.index({leaguePool: this.leaguePool})
                 .then((leagues) => {
                     this.leagues = leagues;
                     this.loadingLeagues = false;

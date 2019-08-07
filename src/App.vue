@@ -2,7 +2,9 @@
 <template>
     <div class="app">
         <app-header></app-header>
-        <router-view class="container"></router-view>
+        <main class="container">
+            <router-view></router-view>
+        </main>
         <app-footer></app-footer>
     </div>
 </template>
@@ -18,8 +20,8 @@
     @Component({
         components: {
             AppFooter,
-            AppHeader
-        }
+            AppHeader,
+        },
     })
     export default class App extends Vue {
         beforeCreate() {
@@ -42,4 +44,7 @@
 </script>
 
 <style scoped>
+    main {
+        padding-top: 15px;
+    }
 </style>

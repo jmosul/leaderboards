@@ -6,7 +6,7 @@ class Controller {
     }
 
     get params() {
-        return this.request.params;
+        return this.request.query;
     }
 
     get body() {
@@ -28,7 +28,10 @@ class Controller {
      * @return {string}
      */
     get leaguePool() {
-        return process.env.LEAGUE_POOL;
+        console.log('par', this.request.params);
+        console.log('bod', this.request.params);
+
+        return this.body.leaguePool || this.params.leaguePool;
     }
 
     get userId() {
@@ -38,7 +41,7 @@ class Controller {
             const providerParts = provider.split('CognitoSignIn:');
 
             if(providerParts.length !== 2) {
-                throw {error: 400, message: 'No User Provider'};
+                throw { error: 400, message: 'No User Provider' };
             }
 
             this.cognitoUser = providerParts[1];

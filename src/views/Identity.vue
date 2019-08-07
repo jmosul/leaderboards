@@ -16,14 +16,14 @@
             super();
 
             this.authConfig = {
-                signUpConfig
+                signUpConfig,
             };
 
             this._registerListeners();
         }
 
         handleConfirmSignUp() {
-            // this.$router.go('/');
+            this.$router.go('/');
         }
 
         _registerListeners() {

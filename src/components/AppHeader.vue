@@ -1,7 +1,7 @@
 <template>
     <header>
         <b-navbar
-            type="is-light"
+            type="is-dark"
         >
             <template slot="brand">
                 <b-navbar-item href="/">
@@ -10,22 +10,21 @@
                         alt="Leaderboards"
                     >
                     &nbsp;
-<!--                    <h1 class="is-size-4">Title here</h1>-->
                 </b-navbar-item>
             </template>
             <template slot="start">
                 <b-navbar-item tag="router-link" to="/">
-                    Home
-                </b-navbar-item>
-                <b-navbar-item tag="router-link" to="/protected">
-                    Protected
+                    Leagues
                 </b-navbar-item>
             </template>
 
             <template slot="end">
                 <b-navbar-item tag="div">
                     <div class="buttons">
-                        <router-link to="/identify" class="button is-primary">
+                        <button type="button" class="button is-primary" v-if="signedIn">
+                            TODO: Sign Out
+                        </button>
+                        <router-link to="/identify" class="button is-primary" v-else>
                             Sign In/Up
                         </router-link>
                     </div>
@@ -42,10 +41,13 @@
 
     Vue.use(Navbar);
 
-    @Component({
-    })
-    export default class AppHeader {
-
+    @Component({})
+    export default class AppHeader extends Vue {
+        created() {
+            return Vue.prototype.$Amplify.Auth.currentAuthenticatedUser()
+                .then(() => this.signedIn = true)
+                .catch(() => this.signedIn = false);
+        }
     }
 </script>
 

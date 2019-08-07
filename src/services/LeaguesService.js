@@ -5,8 +5,8 @@ class LeaguesService extends ApiProvider {
     /**
      * @return {Promise<Array<League>>}
      */
-    async index() {
-        return this._doGet().then(
+    async index(params = {}) {
+        return this._doGet('', params).then(
             (response) => response.data.map((league) => new League(league)),
             (error) => {
                 throw error;

@@ -18,7 +18,13 @@ const leaguesSchema = new Schema({
     },
     name: {
         type: String,
-        trim: true
+        trim: true,
+        required: true
+    },
+    icon: {
+        type: String,
+        trim: true,
+        default: 'list-ol'
     }
 }, {
     timestamps: true

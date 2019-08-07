@@ -30,8 +30,8 @@ class LeaguesController extends ResourceController {
     }
 
     async store() {
-        const name = this.request.body.name;
-        const icon = this.request.body.icon;
+        const name = this.body.name;
+        const icon = this.body.icon;
 
         if(!name || name.length === 0) {
             return this.error({
@@ -53,22 +53,15 @@ class LeaguesController extends ResourceController {
     async _getLeaguesByIds(leagueIds) {
         return new Promise((resolve, reject) => {
 
-        if(!leagueIds || leagueIds.length === 0) {
-            resolve([]);
-        }
+            if(!leagueIds || leagueIds.length === 0) {
+                resolve([]);
+            }
 
-        League.query('leaguePool')
-            .eq(this.leaguePool)
-            .where(leagueId)
-            .in(leagueIds)
-            .exec(
-                (err, leagues) => {
-                    if(err) {
-                        reject(err);
-                    }
-
-                    resolve(leagues);
-                }
+            League.query({
+                leaguePool: {eq: this.leaguePool},
+                leagueId: {in: leagueIds}
+            }).exec(
+                (err, leagues) => err ? reject(err) : resolve(leagues)
             );
         });
     }
