@@ -25,10 +25,10 @@
                         <b-icon icon="search" size="is-small" pack="fas" class="is-left"></b-icon>
                     </p>
                 </div>
-                <a class="panel-block" v-for="(league, index) in leagues" :key="index">
+                <router-link class="panel-block" v-for="(league, index) in leagues" :key="index" :to="{ name: 'league', params: { leagueId: league.leagueId }}">
                     <b-icon v-bind:icon="league.icon" size="is-small" pack="fas" class="is-left"></b-icon>
                     {{league.name}}
-                </a>
+                </router-link>
                 <div class="panel-block has-text-grey" v-if="hasNoLeagues">
                     You have not entered any Leagues
                 </div>
@@ -71,7 +71,7 @@
         },
     })
     export default class Home extends Vue {
-        @Getter('leaguePool') leaguePool;
+        @Getter('league/leaguePool') leaguePool;
 
         leagues = [];
 

@@ -20,7 +20,7 @@ const competitorsSchema = new Schema({
     },
     rank: {
         type: Number,
-        default: 1500
+        default: 1600
     },
     played: {
         type: Number,

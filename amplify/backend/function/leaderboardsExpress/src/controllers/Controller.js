@@ -6,11 +6,11 @@ class Controller {
     }
 
     get params() {
-        return this.request.query;
+        return this.request.query || {};
     }
 
     get body() {
-        return this.request.body;
+        return this.request.body || {};
     }
 
     get apiEvent() {
@@ -21,16 +21,13 @@ class Controller {
      * @return {string|undefined}
      */
     get leagueId() {
-        return this.params.leagueId;
+        return this.params.leagueId || this.request.params.leagueId;
     }
 
     /**
      * @return {string}
      */
     get leaguePool() {
-        console.log('par', this.request.params);
-        console.log('bod', this.request.params);
-
         return this.body.leaguePool || this.params.leaguePool;
     }
 
