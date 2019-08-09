@@ -2,19 +2,27 @@
     <form name="addMatch" @submit.prevent="handleAdd">
         <b-field groupped>
             <b-select placeholder="Player 1">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
+                <option
+                    v-for="(competitor, key) in competitors"
+                    :value="competitor.competitorId"
+                    :key="competitor.competitorId"
+                >
+                    {{ competitor.name }}
+                </option>
             </b-select>
 
             <span>
                 v
             </span>
 
-            <b-select placeholder="Player 1">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
+            <b-select placeholder="Player 2">
+                <option
+                    v-for="(competitor, key) in competitors"
+                    :value="competitor.competitorId"
+                    :key="competitor.competitorId"
+                >
+                    {{ competitor.name }}
+                </option>
             </b-select>
         </b-field>
     </form>
@@ -24,15 +32,16 @@
     import Vue from 'vue';
     import Component from 'vue-class-component';
     import {Field, Select} from 'buefy/src/index';
+    import {Getter} from 'vuex-class';
 
     Vue.use(Field);
     Vue.use(Select);
 
     @Component({
-        components: { Field, Select},
+        components: {Field, Select},
     })
     export default class AddMatch extends Vue {
-
+        @Getter('league/competitors') competitors;
     }
 </script>
 

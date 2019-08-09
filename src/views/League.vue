@@ -13,10 +13,10 @@
     import Vue from 'vue';
     import Component from 'vue-class-component';
     import AddMatch from '@/components/AddMatch';
-    import LeagueTable from '@/components/LeagueTable'
+    import LeagueTable from '@/components/LeagueTable';
 
     @Component({
-        components: { LeagueTable, AddMatch },
+        components: {LeagueTable, AddMatch},
     })
     export default class League extends Vue {
 
