@@ -1,9 +1,13 @@
 import Vue from 'vue';
 import uuidRegex from '../../utils/uuidRegex';
 import CompetitorsService from '../../services/CompetitorsService';
+import {Getter} from 'vuex-class';
 
 export default class LeagueForm extends Vue {
+    @Getter('user/username') username;
+
     leagueId = '';
+    competitorName = '';
 
     isJoining = false;
     isCreating = false;
@@ -16,17 +20,19 @@ export default class LeagueForm extends Vue {
         if (this.validateLeagueId()) {
             this.isJoining = true;
 
-            // TODO get from cognito
-            const name = 'James';
-
             const data = {
-                name,
+                name: this.competitorName
             };
 
             return CompetitorsService
                 .leagueId(this.leagueId)
                 .store(data)
-                .then(console.log);
+                .then(
+                    () => {
+
+                    },
+                    (error) => error
+                );
         }
     }
 

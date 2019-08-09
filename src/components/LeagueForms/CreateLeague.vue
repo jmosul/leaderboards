@@ -1,6 +1,6 @@
 <template>
     <form name="createLeague" @submit.prevent="handleCreate">
-        <b-field label="Name" horizontal>
+        <b-field label="League Name">
             <b-input
                 :disabled="isCreating"
                 v-model="league.name"
@@ -65,7 +65,7 @@
 
     @Component({})
     export default class CreateLeague extends LeagueForm {
-        @Getter('leaguePool') getLeaguePool;
+        @Getter('league/leaguePool') leaguePool;
 
         icons = [
             'list-ol',
@@ -82,10 +82,14 @@
             leaguePool: '',
         };
 
+        mounted() {
+            this.competitorName = this.username;
+        }
+
         handleCreate() {
             this.isCreating = true;
 
-            this.league.leaguePool = this.getLeaguePool;
+            this.league.leaguePool = this.leaguePool;
 
             return LeaguesService.store(this.league).then(
                 (league) => {

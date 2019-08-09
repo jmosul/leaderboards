@@ -18,9 +18,6 @@ class MatchesController extends Controller {
                         return this.error(err);
                     }
 
-                    matches.forEach((match) => console.log(match.createdAt));
-
-
                     try {
                         const collection = await MatchesResourceCollection.createFromMatches(matches);
 

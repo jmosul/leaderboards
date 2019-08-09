@@ -8,7 +8,7 @@ class CompetitorsController extends ResourceController {
     async index() {
         return await Competitor
             .query({
-                leagueId: this.leagueId,
+                leagueId: {eq: this.leagueId },
             })
             .exec(
                 (err, competitors) => this.respond(err, competitors)

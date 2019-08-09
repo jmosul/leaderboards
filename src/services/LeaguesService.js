@@ -3,6 +3,20 @@ import League from '../models/League';
 
 class LeaguesService extends ApiProvider {
     /**
+     * @param {string} leaguePool
+     * @param {string} leagueId
+     * @return {Promise<League>}
+     */
+    async show(leaguePool, leagueId) {
+        return this._doGet(leagueId, {leaguePool}).then(
+            (response) => new League(response.data),
+            (error) => {
+                throw error;
+            }
+        );
+    }
+
+    /**
      * @return {Promise<Array<League>>}
      */
     async index(params = {}) {

@@ -43,6 +43,8 @@
 
     @Component({})
     export default class AppHeader extends Vue {
+        signedIn = false;
+
         created() {
             return Vue.prototype.$Amplify.Auth.currentAuthenticatedUser()
                 .then(() => this.signedIn = true)
