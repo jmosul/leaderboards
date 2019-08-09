@@ -3,7 +3,7 @@
         <b-table
             :columns="columns"
             :data="competitors"
-            default-sort="['rank']"
+            default-sort="['rank', 'wins', 'name']"
             default-sort-direction="desc"
         ></b-table>
     </div>
@@ -12,7 +12,7 @@
 <script>
     import Vue from 'vue';
     import Component from 'vue-class-component';
-    import {Table} from 'buefy';
+    import {Table} from 'buefy/src/index';
     import {Getter} from 'vuex-class';
 
     Vue.use(Table);

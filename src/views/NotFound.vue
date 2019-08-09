@@ -14,7 +14,7 @@
 <script>
     import Vue from 'vue';
     import Component from 'vue-class-component';
-    import {Message} from 'buefy';
+    import {Message} from 'buefy/src/index';
 
     Vue.use(Message);
 

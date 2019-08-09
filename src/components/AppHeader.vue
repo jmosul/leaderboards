@@ -35,7 +35,7 @@
 </template>
 
 <script>
-    import {Navbar} from 'buefy';
+    import {Navbar} from 'buefy/src/index';
     import Vue from 'vue';
     import Component from 'vue-class-component';
 

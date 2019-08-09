@@ -44,7 +44,7 @@
 <script>
     import Vue from 'vue';
     import Component from 'vue-class-component';
-    import {Field, Icon, Input} from 'buefy';
+    import {Field, Icon, Input} from 'buefy/src/index';
     import LeagueForm from './LeagueForm';
 
     Vue.use(Icon);
