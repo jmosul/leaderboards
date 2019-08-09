@@ -3,8 +3,9 @@
         <b-table
             :columns="columns"
             :data="competitors"
-            default-sort="['rank', 'wins', 'name']"
+            default-sort="rank"
             default-sort-direction="desc"
+            mobile-cards
         ></b-table>
     </div>
 </template>
