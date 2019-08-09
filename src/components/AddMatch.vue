@@ -31,15 +31,9 @@
 <script>
     import Vue from 'vue';
     import Component from 'vue-class-component';
-    import {Field, Select} from 'buefy/src/index';
     import {Getter} from 'vuex-class';
 
-    Vue.use(Field);
-    Vue.use(Select);
-
-    @Component({
-        components: {Field, Select},
-    })
+    @Component({})
     export default class AddMatch extends Vue {
         @Getter('league/competitors') competitors;
     }
