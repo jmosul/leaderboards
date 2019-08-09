@@ -23,7 +23,7 @@
 <script>
     import Vue from 'vue';
     import Component from 'vue-class-component';
-    import {Field, Select} from 'buefy';
+    import {Field, Select} from 'buefy/src/index';
 
     Vue.use(Field);
     Vue.use(Select);

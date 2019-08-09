@@ -54,7 +54,7 @@
 <script>
     import Vue from 'vue';
     import Component from 'vue-class-component';
-    import {Icon, Tabs} from 'buefy';
+    import {Icon, Tabs} from 'buefy/src/index';
     import LeaguesService from '../services/LeaguesService';
     import JoinLeague from '../components/LeagueForms/JoinLeague';
     import CreateLeague from '../components/LeagueForms/CreateLeague';

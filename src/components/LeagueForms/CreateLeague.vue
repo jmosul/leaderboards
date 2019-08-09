@@ -52,7 +52,7 @@
 <script>
     import Vue from 'vue';
     import Component from 'vue-class-component';
-    import {Button, Field, Icon, Input, Radio} from 'buefy';
+    import {Button, Field, Icon, Input, Radio} from 'buefy/src/index';
     import LeagueForm from './LeagueForm';
     import LeaguesService from '../../services/LeaguesService';
     import {Getter} from 'vuex-class';
