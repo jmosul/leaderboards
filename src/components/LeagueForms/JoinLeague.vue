@@ -1,19 +1,6 @@
 <template>
     <form class="join-league" @submit.prevent="joinLeague">
         <b-field
-            label="Your name"
-            position="is-centered"
-        >
-            <b-input
-                icon-pack="fas"
-                type="text"
-                v-model="competitorName"
-                :disabled="isJoining"
-                expanded
-                required
-            ></b-input>
-        </b-field>
-        <b-field
             label="League Id"
             position="is-centered"
             :type="fieldType"
@@ -65,7 +52,11 @@
     Vue.use(Input);
 
     @Component({})
-    export default class CreateLeague extends LeagueForm {
+    export default class JoinLeague extends LeagueForm {
+        mounted() {
+            this.competitorName = this.username;
+        }
+
         get fieldType() {
             if(this.validateLeagueId()) {
                 return 'is-success';

@@ -34,7 +34,6 @@
                 </div>
             </div>
         </section>
-
         <section class="column is-one-third">
             <div class="panel">
                 <div class="panel-block">

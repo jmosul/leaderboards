@@ -52,8 +52,6 @@ router.beforeResolve((to, from, next) => {
                 next({path: '/'});
             }
 
-            console.log( 'disp' );
-
             store.dispatch('league/handleRouteChange', to).then(
                 () => next()
             );

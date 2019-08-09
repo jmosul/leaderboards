@@ -3,16 +3,12 @@ import CompetitorsService from '../../services/CompetitorsService';
 
 export default {
     handleRouteChange: async({ commit, dispatch }, { params }) => {
-        console.log( 'leagueId', params);
-
         commit('leagueId', params.leagueId);
 
         return await dispatch('updateLeague');
     },
     updateLeague: async({getters, dispatch, commit}) => {
         const leagueId = getters.leagueId;
-
-        console.log( getters.leaguePool, getters.leaguePool );
 
         if(leagueId) {
             const promises = Promise.all([
@@ -49,5 +45,5 @@ export default {
         commit('name', league.name);
         commit('icon', league.icon);
         commit('leagueId', league.leagueId);
-    }
+    },
 };

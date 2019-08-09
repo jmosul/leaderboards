@@ -1,8 +1,11 @@
 import Vue from 'vue';
 import uuidRegex from '../../utils/uuidRegex';
 import CompetitorsService from '../../services/CompetitorsService';
+import {Getter} from 'vuex-class';
 
 export default class LeagueForm extends Vue {
+    @Getter('user/username') username;
+
     leagueId = '';
     competitorName = '';
 

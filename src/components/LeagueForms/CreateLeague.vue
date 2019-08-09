@@ -9,20 +9,6 @@
             ></b-input>
         </b-field>
 
-        <b-field
-            label="Your name"
-            position="is-centered"
-        >
-            <b-input
-                icon-pack="fas"
-                type="text"
-                v-model="competitorName"
-                :disabled="isJoining"
-                expanded
-                required
-            ></b-input>
-        </b-field>
-
         <b-field label="Choose an icon"></b-field>
 
         <b-field grouped>
@@ -96,8 +82,8 @@
             leaguePool: '',
         };
 
-        mounted(){
-            console.log( this.leaguePool );
+        mounted() {
+            this.competitorName = this.username;
         }
 
         handleCreate() {

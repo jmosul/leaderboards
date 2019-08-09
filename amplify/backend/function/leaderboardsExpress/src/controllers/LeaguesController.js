@@ -20,11 +20,6 @@ class LeaguesController extends ResourceController {
     }
 
     async show() {
-        console.log( 'getLeague', {
-            leaguePool: this.leaguePool,
-            leagueId: this.leagueId,
-        } );
-        
         return await League.get({
             leaguePool: this.leaguePool,
             leagueId: this.leagueId,
