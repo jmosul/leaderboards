@@ -21,7 +21,7 @@ export default class LeagueForm extends Vue {
             this.isJoining = true;
 
             const data = {
-                name: this.competitorName
+                name: this.competitorName,
             };
 
             return CompetitorsService
