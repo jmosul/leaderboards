@@ -4,4 +4,5 @@ export default {
     name: undefined,
     icon: undefined,
     competitors: [],
+    isLoading: false,
 };

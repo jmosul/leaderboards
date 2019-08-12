@@ -5,7 +5,7 @@
             :data="competitors"
             default-sort="rank"
             default-sort-direction="desc"
-            mobile-cards
+            mobile-cards="false"
         ></b-table>
     </div>
 </template>
@@ -13,10 +13,7 @@
 <script>
     import Vue from 'vue';
     import Component from 'vue-class-component';
-    import {Table} from 'buefy/src/index';
     import {Getter} from 'vuex-class';
-
-    Vue.use(Table);
 
     @Component({})
     export default class LeagueTable extends Vue {
@@ -49,14 +46,6 @@
                 sortable: true,
             },
         ];
-
-        get leagueCompetitors() {
-            const competitors = this.competitors;
-
-            console.log(competitors);
-
-            return competitors;
-        }
     }
 </script>
 

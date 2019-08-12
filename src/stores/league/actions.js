@@ -10,6 +10,8 @@ export default {
     updateLeague: async({getters, dispatch, commit}) => {
         const leagueId = getters.leagueId;
 
+        commit('isLoading');
+
         if (leagueId) {
             const promises = Promise.all([
                 LeaguesService.show(getters.leaguePool, leagueId),
@@ -21,9 +23,13 @@ export default {
                     dispatch('updateFromModel', results[0]);
                     commit('competitors', results[1]);
 
+                    commit('isLoading', false);
+
                     return true;
                 },
                 (error) => {
+                    commit('isLoading', false);
+
                     throw error;
                 }
             );

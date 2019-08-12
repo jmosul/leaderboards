@@ -3,7 +3,7 @@
         <section class="column is-two-thirds">
             <div class="panel">
 
-                <p class="panel-heading has-background-info has-text-light">
+                <p class="panel-heading has-background-secondary has-text-light">
                     Your Leagues
                     <span v-if="isLoading">
                     <b-icon

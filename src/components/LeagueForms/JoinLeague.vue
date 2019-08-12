@@ -52,10 +52,9 @@
         }
 
         get fieldType() {
-            if(this.validateLeagueId()) {
+            if (this.validateLeagueId()) {
                 return 'is-success';
-            }
-            else if(this.leagueId.length === 0) {
+            } else if (this.leagueId.length === 0) {
                 return '';
             }
 
