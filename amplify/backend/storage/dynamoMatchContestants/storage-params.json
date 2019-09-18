@@ -1,1 +1,5 @@
-{}
+{
+    "triggerFunctions": [
+        "dynamoMatchContestantsTrigger4e5e70ad"
+    ]
+}
