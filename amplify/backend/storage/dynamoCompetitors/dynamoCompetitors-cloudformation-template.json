@@ -11,14 +11,14 @@
         "env": {
             "Type": "String"
         },
-        
+
         "sortKeyName": {
             "Type": "String"
         },
         "sortKeyType": {
             "Type": "String"
         },
-        
+
         "tableName": {
             "Type": "String"
         }
@@ -38,34 +38,34 @@
             "Type": "AWS::DynamoDB::Table",
             "Properties": {
                 "AttributeDefinitions": [
-                  
+
                   {
                       "AttributeName": "leagueId",
                       "AttributeType": "S"
-                  }  , 
-                  
+                  }  ,
+
                   {
                       "AttributeName": "competitorId",
                       "AttributeType": "S"
-                  } 
-                  
+                  }
+
                 ],
                 "KeySchema": [
-                  
+
                   {
                     "AttributeName": "leagueId",
                     "KeyType": "HASH"
-                  }  , 
-                  
+                  }  ,
+
                   {
                     "AttributeName": "competitorId",
                     "KeyType": "RANGE"
-                  } 
-                  
+                  }
+
                 ],
                 "ProvisionedThroughput": {
-                    "ReadCapacityUnits": "5",
-                    "WriteCapacityUnits": "5"
+                    "ReadCapacityUnits": "1",
+                    "WriteCapacityUnits": "1"
                 },
                 "StreamSpecification": {
                     "StreamViewType": "NEW_IMAGE"
@@ -75,7 +75,7 @@
                         "ShouldNotCreateEnvResources",
                         {
                            "Ref": "tableName"
-                        }, 
+                        },
                         {
 
                             "Fn::Join": [
@@ -90,10 +90,10 @@
                                   }
                                 ]
                             ]
-                        },       
+                        },
                     ]
                 }
-                
+
             }
         }
     },
@@ -129,7 +129,7 @@
                 "Ref": "partitionKeyType"
             }
         },
-        
+
         "SortKeyName": {
             "Value": {
                 "Ref": "sortKeyName"
@@ -140,7 +140,7 @@
                 "Ref": "sortKeyType"
             }
         },
-        
+
         "Region": {
             "Value": {
                 "Ref": "AWS::Region"
