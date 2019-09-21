@@ -26,6 +26,14 @@
             this.$router.go('/');
         }
 
+        handleConfirmSignIn() {
+            this.$router.go('/');
+        }
+
+        handleSignIn() {
+            this.$router.go('/');
+        }
+
         _registerListeners() {
             AmplifyEventBus.$on('authState', info => {
                 const event = info.charAt(0).toUpperCase() + info.slice(1);
