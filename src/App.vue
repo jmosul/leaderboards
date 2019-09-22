@@ -79,4 +79,18 @@
     // Import Bulma and Buefy styles
     @import "~bulma";
     @import "~buefy/src/scss/buefy";
+
+    body {
+        --color-primary: #{$primary};
+        --color-primary-accent: #{$primary-invert};
+        --color-primary-highlight: #{$primary};
+        --color-background: #232f3e;
+        --color-secondary: #{$secondary};
+        --color-secondary-accent: #{$secondary-invert};
+        --color-danger: #{$colors("danger")};
+        --color-error: #d0021b;
+        --gradient-blaze: linear-gradient(270deg,#{$secondary},#{$primary});
+        --button-background-color: #{$primary};
+        --button-color: #{$primary-invert};
+    }
 </style>
