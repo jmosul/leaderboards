@@ -21,9 +21,7 @@
             <template slot="end">
                 <b-navbar-item tag="div">
                     <div class="buttons">
-                        <button type="button" class="button is-primary" v-if="signedIn">
-                            TODO: Sign Out
-                        </button>
+                        <sign-out v-if="signedIn"></sign-out>
                         <router-link to="/identify" class="button is-primary" v-else>
                             Sign In/Up
                         </router-link>
@@ -35,17 +33,29 @@
 </template>
 
 <script>
-    import {Navbar} from 'buefy/src/index';
-    import Vue from 'vue';
+    import {AmplifyEventBus} from 'aws-amplify-vue';
     import Component from 'vue-class-component';
+    import {Navbar} from 'buefy/src/index';
+    import SignOut from './Auth/SignOut';
+    import Vue from 'vue';
 
     Vue.use(Navbar);
 
-    @Component({})
+    @Component({
+        components: {
+            SignOut,
+        },
+    })
     export default class AppHeader extends Vue {
         signedIn = false;
 
         created() {
+            AmplifyEventBus.$on('authState', info => this.confirmSignedIn());
+
+            return this.confirmSignedIn();
+        }
+
+        confirmSignedIn() {
             return Vue.prototype.$Amplify.Auth.currentAuthenticatedUser()
                 .then(() => this.signedIn = true)
                 .catch(() => this.signedIn = false);
