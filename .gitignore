@@ -3,6 +3,7 @@ node_modules
 /dist
 http-requests
 http-client.env.json
+backup
 
 # local env files
 .env.local
