@@ -149,40 +149,21 @@
                                     }
                                 ]
                             }
-                        }
-                    ]
-                }
-            }
-        },
-        "dynamoMatchContestantsTriggerPolicy": {
-            "DependsOn": [
-                "LambdaExecutionRole"
-            ],
-            "Type": "AWS::IAM::Policy",
-            "Properties": {
-                "PolicyName": "lambda-execution-policy-streams",
-                "Roles": [
-                    {
-                        "Ref": "LambdaExecutionRole"
-                    }
-                ],
-                "PolicyDocument": {
-                    "Version": "2012-10-17",
-                    "Statement": [
-                        {
-                            "Effect": "Allow",
-                            "Action": [
-                                "dynamodb:DescribeStream",
-                                "dynamodb:GetRecords",
-                                "dynamodb:GetShardIterator",
-                                "dynamodb:ListStreams"
-                            ],
-                            "Resource": [
-                                {
-                                    "Ref": "storagedynamoMatchContestantsStreamArn"
-                                }
-                            ]
-                        }
+                        },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "dynamodb:DescribeStream",
+                          "dynamodb:GetRecords",
+                          "dynamodb:GetShardIterator",
+                          "dynamodb:ListStreams"
+                        ],
+                        "Resource": [
+                          {
+                            "Ref": "storagedynamoMatchContestantsStreamArn"
+                          }
+                        ]
+                      }
                     ]
                 }
             }
@@ -190,7 +171,7 @@
         "dynamoMatchContestantsTrigger": {
             "Type": "AWS::Lambda::EventSourceMapping",
             "DependsOn": [
-                "dynamoMatchContestantsTriggerPolicy"
+                "lambdaexecutionpolicy"
             ],
             "Properties": {
                 "BatchSize": 100,
