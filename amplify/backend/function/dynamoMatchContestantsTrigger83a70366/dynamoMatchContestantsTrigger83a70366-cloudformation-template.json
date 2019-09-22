@@ -160,7 +160,7 @@
             ],
             "Type": "AWS::IAM::Policy",
             "Properties": {
-                "PolicyName": "lambda-execution-policy",
+                "PolicyName": "lambda-execution-policy-streams",
                 "Roles": [
                     {
                         "Ref": "LambdaExecutionRole"
