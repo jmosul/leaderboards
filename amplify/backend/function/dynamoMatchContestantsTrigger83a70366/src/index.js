@@ -1,6 +1,5 @@
 const CalculateCompetitorStats = require('./CalculateCompetitorStats');
 
-
 exports.handler = function(event, context) {
   const promises = [];
 
