@@ -9,15 +9,14 @@ exports.handler = function(event, context) {
     console.log('DynamoDB Record: %j', record.dynamodb);
 
     const handler = new CalculateCompetitorStats(
-      record.NewImage.leagueId.S,
-      record.NewImage.competitorId.S
+      record.dynamodb.NewImage.leagueId.S,
+      record.dynamodb.NewImage.competitorId.S
     );
 
     promises.push(
       handler.handle()
     );
   });
-
 
   Promise.all(promises)
     .then(() => context.done(null, 'Successfully processed DynamoDB record'))
