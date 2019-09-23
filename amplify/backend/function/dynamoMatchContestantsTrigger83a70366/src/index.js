@@ -20,5 +20,5 @@ exports.handler = function(event, context) {
 
   Promise.all(promises)
     .then(() => context.done(null, 'Successfully processed DynamoDB record'))
-    .catch(() => context.done('Error processed DynamoDB record', null))
+    .catch((e) => context.done(e, null))
 };
