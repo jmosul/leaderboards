@@ -2,14 +2,6 @@ const MatchContestant = require('./models/MatchContestant');
 const Competitor = require('./models/Competitor');
 
 class CalculateCompetitorStats {
-  leagueId;
-  competitorId;
-
-  played = 0;
-  wins = 0;
-  draws = 0;
-  loses = 0;
-
   /**
    * @param {string} leagueId
    * @param {string} competitorId
