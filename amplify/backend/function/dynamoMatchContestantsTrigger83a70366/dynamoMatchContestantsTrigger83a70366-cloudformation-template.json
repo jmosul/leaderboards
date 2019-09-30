@@ -16,6 +16,14 @@
     "storagedynamoMatchContestantsStreamArn": {
       "Type": "String",
       "Default": "storagedynamoMatchContestantsArn"
+    },
+    "storagedynamoCompetitorsArn": {
+      "Type": "String",
+      "Default": "storagedynamoCompetitorsArn"
+    },
+    "storagedynamoCompetitorsName": {
+      "Type": "String",
+      "Default": "storagedynamoCompetitorsName"
     }
   },
   "Conditions": {
@@ -61,29 +69,11 @@
               "Ref": "env"
             }
           },
-          "STORAGE_DYNAMOLEAGUES_NAME": {
-            "Ref": "storagedynamoLeaguesName"
-          },
-          "STORAGE_DYNAMOLEAGUES_ARN": {
-            "Ref": "storagedynamoLeaguesArn"
-          },
-          "STORAGE_DYNAMOUSERLEAGUES_NAME": {
-            "Ref": "storagedynamoUserLeaguesName"
-          },
-          "STORAGE_DYNAMOUSERLEAGUES_ARN": {
-            "Ref": "storagedynamoUserLeaguesArn"
-          },
           "STORAGE_DYNAMOCOMPETITORS_NAME": {
             "Ref": "storagedynamoCompetitorsName"
           },
           "STORAGE_DYNAMOCOMPETITORS_ARN": {
             "Ref": "storagedynamoCompetitorsArn"
-          },
-          "STORAGE_DYNAMOMATCHES_NAME": {
-            "Ref": "storagedynamoMatchesName"
-          },
-          "STORAGE_DYNAMOMATCHES_ARN": {
-            "Ref": "storagedynamoMatchesArn"
           },
           "STORAGE_DYNAMOMATCHCONTESTANTS_NAME": {
             "Ref": "storagedynamoMatchContestantsName"
