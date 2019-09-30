@@ -40,8 +40,7 @@ class CalculateCompetitorStats {
 
             matchContestants.each((matchContestant) => this._countResult(matchContestant));
           }
-        )
-        .all(100);
+        );
 
       resolve(true);
     });
