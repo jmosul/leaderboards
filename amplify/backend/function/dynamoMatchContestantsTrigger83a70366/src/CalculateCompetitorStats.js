@@ -30,7 +30,7 @@ class CalculateCompetitorStats {
       MatchContestant
         .query({
           leagueId: {eq: this.leagueId},
-          competitorId: {eq: competitorId}
+          competitorId: {eq: this.competitorId}
         })
         .exec(
           (err, matchContestants) => {
