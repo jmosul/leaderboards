@@ -67,19 +67,19 @@
           "Variables": {
             "ENV": {
               "Ref": "env"
+            },
+            "STORAGE_DYNAMOCOMPETITORS_NAME": {
+              "Ref": "storagedynamoCompetitorsName"
+            },
+            "STORAGE_DYNAMOCOMPETITORS_ARN": {
+              "Ref": "storagedynamoCompetitorsArn"
+            },
+            "STORAGE_DYNAMOMATCHCONTESTANTS_NAME": {
+              "Ref": "storagedynamoMatchContestantsName"
+            },
+            "STORAGE_DYNAMOMATCHCONTESTANTS_ARN": {
+              "Ref": "storagedynamoMatchContestantsArn"
             }
-          },
-          "STORAGE_DYNAMOCOMPETITORS_NAME": {
-            "Ref": "storagedynamoCompetitorsName"
-          },
-          "STORAGE_DYNAMOCOMPETITORS_ARN": {
-            "Ref": "storagedynamoCompetitorsArn"
-          },
-          "STORAGE_DYNAMOMATCHCONTESTANTS_NAME": {
-            "Ref": "storagedynamoMatchContestantsName"
-          },
-          "STORAGE_DYNAMOMATCHCONTESTANTS_ARN": {
-            "Ref": "storagedynamoMatchContestantsArn"
           }
         },
         "Role": {
