@@ -38,7 +38,7 @@ class CalculateCompetitorStats {
                             console.log(err);
                             reject(err);
                         } else {
-                            matchContestants.each((matchContestant) => this._countResult(matchContestant));
+                            matchContestants.forEach((matchContestant) => this._countResult(matchContestant));
                         }
                     }
                 );
