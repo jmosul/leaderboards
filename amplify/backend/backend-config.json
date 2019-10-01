@@ -65,7 +65,15 @@
 						"Arn",
 						"StreamArn"
 					]
-				}
+				},
+        {
+          "category": "storage",
+          "resourceName": "dynamoCompetitors",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
 			]
 		}
 	},
