@@ -21,16 +21,14 @@ export default class LeagueForm extends Vue {
             this.isJoining = true;
 
             const data = {
-                name: this.competitorName
+                name: this.username,
             };
 
             return CompetitorsService
                 .leagueId(this.leagueId)
                 .store(data)
                 .then(
-                    () => {
-
-                    },
+                    () => this.$router.go('league', {leagueId: this.leagueId}),
                     (error) => error
                 );
         }

@@ -59,8 +59,11 @@ class AddMatchController extends Controller {
         homeContestant.preRank = this._home.rank;
         awayContestant.preRank = this._away.rank;
 
-        this._home.rank = homeContestant.postRank = elo.getRating(homeContestant.preRank, awayContestant.preRank, this.getEloVictor('home'));
-        this._away.rank = awayContestant.postRank = elo.getRating(awayContestant.preRank, homeContestant.preRank, this.getEloVictor('away'));
+        const homeRank = elo.getRating(homeContestant.preRank, awayContestant.preRank, this.getEloVictor('home'));
+        const awayRank = elo.getRating(awayContestant.preRank, homeContestant.preRank, this.getEloVictor('away'));
+
+        this._home.rank = homeContestant.postRank = homeRank > 0 ? Math.round(homeRank) : 0;
+        this._away.rank = awayContestant.postRank = awayRank > 0 ? Math.round(awayRank) : 0;
 
         await this.saveCompetitors();
 

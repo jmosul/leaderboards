@@ -42,14 +42,8 @@
 </template>
 
 <script>
-    import Vue from 'vue';
     import Component from 'vue-class-component';
-    import {Field, Icon, Input} from 'buefy/src/index';
     import LeagueForm from './LeagueForm';
-
-    Vue.use(Icon);
-    Vue.use(Field);
-    Vue.use(Input);
 
     @Component({})
     export default class JoinLeague extends LeagueForm {
@@ -58,10 +52,9 @@
         }
 
         get fieldType() {
-            if(this.validateLeagueId()) {
+            if (this.validateLeagueId()) {
                 return 'is-success';
-            }
-            else if(this.leagueId.length === 0) {
+            } else if (this.leagueId.length === 0) {
                 return '';
             }
 

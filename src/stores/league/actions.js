@@ -2,38 +2,42 @@ import LeaguesService from '../../services/LeaguesService';
 import CompetitorsService from '../../services/CompetitorsService';
 
 export default {
-    handleRouteChange: async({ commit, dispatch }, { params }) => {
+    handleRouteChange: async({commit, dispatch}, {params}) => {
         commit('leagueId', params.leagueId);
 
-        return await dispatch('updateLeague');
+        return dispatch('updateLeague');
     },
     updateLeague: async({getters, dispatch, commit}) => {
         const leagueId = getters.leagueId;
 
-        if(leagueId) {
+        commit('isLoading');
+
+        if (leagueId) {
             const promises = Promise.all([
                 LeaguesService.show(getters.leaguePool, leagueId),
                 CompetitorsService.leagueId(leagueId).index(),
             ]);
 
-            return await promises.then(
+            return promises.then(
                 (results) => {
                     dispatch('updateFromModel', results[0]);
                     commit('competitors', results[1]);
 
+                    commit('isLoading', false);
+
                     return true;
                 },
                 (error) => {
+                    commit('isLoading', false);
+
                     throw error;
                 }
             );
         }
 
-        return false;
-
-        // return dispatch('clearLeague');
+        return dispatch('clearLeague');
     },
-    clearLeague: async({ commit }) => {
+    clearLeague: async({commit}) => {
         commit('leagueId');
         commit('competitors');
         commit('name');
@@ -41,7 +45,7 @@ export default {
 
         return true;
     },
-    updateFromModel:({commit}, league) => {
+    updateFromModel: ({commit}, league) => {
         commit('name', league.name);
         commit('icon', league.icon);
         commit('leagueId', league.leagueId);

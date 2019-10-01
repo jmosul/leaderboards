@@ -17,26 +17,26 @@ module.exports = {
             'error', 4, {
                 'baseIndent': 1,
                 'switchCase': 1,
-                'ignores': []
+                'ignores': [],
             }
         ],
         'comma-dangle': ['error', 'always-multiline'],
         'space-before-function-paren': ['error', 'never'],
-        'no-return-assign': 'off'
+        'no-return-assign': 'off',
     },
     'overrides': [
         {
             'files': ['*.vue'],
             'rules': {
-                'indent': 'off'
-            }
-        }
+                'indent': 'off',
+            },
+        },
     ],
     parserOptions: {
         parser: 'babel-eslint',
         ecmaVersion: 2015,
         ecmaFeatures: {
-            legacyDecorators: true
-        }
-    }
+            legacyDecorators: true,
+        },
+    },
 };

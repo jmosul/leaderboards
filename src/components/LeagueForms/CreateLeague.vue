@@ -50,18 +50,10 @@
 </template>
 
 <script>
-    import Vue from 'vue';
     import Component from 'vue-class-component';
-    import {Button, Field, Icon, Input, Radio} from 'buefy/src/index';
     import LeagueForm from './LeagueForm';
     import LeaguesService from '../../services/LeaguesService';
     import {Getter} from 'vuex-class';
-
-    Vue.use(Button);
-    Vue.use(Radio);
-    Vue.use(Field);
-    Vue.use(Input);
-    Vue.use(Icon);
 
     @Component({})
     export default class CreateLeague extends LeagueForm {

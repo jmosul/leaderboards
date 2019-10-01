@@ -2,21 +2,29 @@ import Amplify, * as AmplifyModules from 'aws-amplify';
 import {AmplifyPlugin} from 'aws-amplify-vue';
 import Vue from 'vue';
 import Vuex from 'vuex';
-import 'buefy/src/scss/buefy-build.scss';
 import config from './aws-exports';
+import App from './App.vue';
+import router from './router';
+import store from '@/stores';
+import Buefy from 'buefy';
+import VeeValidate from 'vee-validate';
 
 Vue.config.productionTip = false;
 
 Amplify.configure(config);
 
-import App from './App.vue';
-import router from './router';
-import store from '@/stores';
-
 // Amplify.Logger.LOG_LEVEL = 'DEBUG';
 
 Vue.use(AmplifyPlugin, AmplifyModules);
 Vue.use(Vuex);
+
+Vue.use(Buefy, {
+    defaultIconPack: 'fas',
+});
+
+Vue.use(VeeValidate, {
+    events: '',
+});
 
 new Vue({
     router,
