@@ -34,8 +34,10 @@ class CalculateCompetitorStats {
                 })
                 .exec(
                     (err, matchContestants) => {
+                        console.log('mc');
+                        console.log(matchContestants);
+
                         if (err) {
-                            console.log(err);
                             reject(err);
                         } else {
                             matchContestants.forEach((matchContestant) => this._countResult(matchContestant));
