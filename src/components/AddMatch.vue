@@ -101,32 +101,29 @@
                             <b-field
                                 position="is-centered"
                             >
-                                <b-radio-button
-                                    v-model="match.victor"
-                                    native-value="home"
+                                <b-button
+                                    @click="match.victor = 'home'"
                                     type="is-success"
-                                    name="winner"
+                                    :outlined="match.victor !== 'home'"
                                 >
                                     <span>Home</span>
-                                </b-radio-button>
+                                </b-button>
 
-                                <b-radio-button
-                                    v-model="match.victor"
-                                    native-value="draw"
+                                <b-button
+                                    @click="match.victor = 'draw'"
                                     type="is-secondary"
-                                    name="winner"
+                                    :outlined="match.victor !== 'draw'"
                                 >
                                     Draw
-                                </b-radio-button>
+                                </b-button>
 
-                                <b-radio-button
-                                    v-model="match.victor"
-                                    native-value="away"
+                                <b-button
+                                    @click="match.victor = 'away'"
                                     type="is-success"
-                                    name="winner"
+                                    :outlined="match.victor !== 'away'"
                                 >
                                     Away
-                                </b-radio-button>
+                                </b-button>
                             </b-field>
                         </td>
                     </tr>
