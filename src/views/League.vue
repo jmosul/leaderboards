@@ -16,7 +16,7 @@
             <league-table></league-table>
         </section>
         <section class="column is-one-third">
-            <add-match></add-match>
+            <add-match v-on:matchAdded="refreshLeague"></add-match>
         </section>
     </div>
 </template>
