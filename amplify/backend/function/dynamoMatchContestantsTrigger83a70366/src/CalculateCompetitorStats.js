@@ -12,13 +12,15 @@ class CalculateCompetitorStats {
     }
 
     handle() {
-        this._resetCounts();
+        return new Promise((resolve, reject) => {
+            this._resetCounts();
 
-        return this._updateCounts()
-            .then(() => this._updateCompetitor())
-            .catch((err) => {
-                throw err;
-            })
+            return this._updateCounts()
+                .then(() => this._updateCompetitor().then(() => resolve(true)))
+                .catch((err) => {
+                    reject(err);
+                })
+        })
     }
 
     /**
@@ -37,13 +39,10 @@ class CalculateCompetitorStats {
                         if (err) {
                             reject(err);
                         } else {
-                            matchContestants.forEach((matchContestant) => {
-                                console.log( matchContestant );
-
-                                return this._countResult(matchContestant)
-                            });
+                            matchContestants.forEach((matchContestant) => this._countResult(matchContestant));
 
                             console.log(
+                                'counts',
                                 this.played,
                                 this.wins,
                                 this.draws,
@@ -68,14 +67,18 @@ class CalculateCompetitorStats {
             draws: this.draws,
             loses: this.loses
         };
-        
+
         console.log( 'comp', competitorUpdates );
 
         return new Promise((resolve, reject) => {
             Competitor.update({
                 leagueId: this.leagueId,
                 competitorId: this.competitorId
-            }, competitorUpdates, (err) => err ? reject(err) : resolve())
+            }, competitorUpdates, (err) => {
+                console.log( 'comp update', err );
+                
+                return err ? reject(err) : resolve()
+            })
         });
     }
 
