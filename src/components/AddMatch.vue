@@ -99,31 +99,31 @@
                     <tr>
                         <td colspan="3">
                             <b-field
+                                label="Winner"
+                                label-position="on-border"
+                                class="is-fullwidth"
                                 position="is-centered"
+                                :type="{'is-danger': errors.has('victor')}"
+                                :message="errors.first('victor')"
                             >
-                                <b-button
-                                    @click="match.victor = 'home'"
-                                    type="is-success"
-                                    :outlined="match.victor !== 'home'"
+                                <b-select
+                                    placeholder="Choose winner"
+                                    v-model="match.victor"
+                                    size="is-medium"
+                                    name="victor"
+                                    v-validate="{required: true}"
+                                    expanded
                                 >
-                                    <span>Home</span>
-                                </b-button>
-
-                                <b-button
-                                    @click="match.victor = 'draw'"
-                                    type="is-secondary"
-                                    :outlined="match.victor !== 'draw'"
-                                >
-                                    Draw
-                                </b-button>
-
-                                <b-button
-                                    @click="match.victor = 'away'"
-                                    type="is-success"
-                                    :outlined="match.victor !== 'away'"
-                                >
-                                    Away
-                                </b-button>
+                                    <option value="home">
+                                         {{ match.homeCompetitor.length ? match.homeCompetitor : 'Home' }}
+                                    </option>
+                                    <option value="away">
+                                        {{ match.awayCompetitor.length ? match.awayCompetitor : 'Away' }}
+                                    </option>
+                                    <option value="draw">
+                                        Draw
+                                    </option>
+                                </b-select>
                             </b-field>
                         </td>
                     </tr>
@@ -206,7 +206,7 @@
         }
 
         async isValid() {
-            return this.$validator.validateAll().then((result) => this.match.victor.length > 0 && result);
+            return this.$validator.validateAll().then((result) => result);
         }
 
         showMessage(message, type = 'is-danger') {
