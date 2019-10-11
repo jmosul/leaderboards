@@ -30,10 +30,8 @@ class CalculateCompetitorStats {
     async _updateCounts() {
         return new Promise((resolve, reject) => {
             MatchContestant
-                .query({
-                    leagueId: {eq: this.leagueId},
-                    competitorId: {eq: this.competitorId}
-                })
+                .query('leagueId').eq(this.leagueId)
+                .filter('competitorId').eq(this.competitorId)
                 .exec(
                     (err, matchContestants) => {
                         if (err) {
@@ -81,7 +79,7 @@ class CalculateCompetitorStats {
      */
     _countResult(matchContestant) {
         this.played++;
-        
+
         console.log( this.competitorId, matchContestant.competitorId, matchContestant.foeId );
 
         switch(matchContestant.result) {
