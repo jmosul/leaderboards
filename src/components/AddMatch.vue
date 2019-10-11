@@ -172,7 +172,7 @@
             this.match.awayCompetitor = '';
             this.match.homeScore = '';
             this.match.awayScore = '';
-            this.match.victor = 'draw';
+            this.match.victor = '';
         }
 
         async handleSubmit() {
@@ -195,6 +195,7 @@
                         this.showMessage('Match added', 'is-success');
                         this.resetMatch();
                         this.$validator.reset();
+                        this.onMatchAdded();
                     },
                     ({message}) => {
                         this.adding = false;
@@ -204,7 +205,7 @@
         }
 
         async isValid() {
-            return this.$validator.validateAll().then((result) => result);
+            return this.$validator.validateAll().then((result) => this.match.victor.length > 0 && result);
         }
 
         showMessage(message, type = 'is-danger') {
@@ -213,6 +214,11 @@
                 type,
                 position: 'is-top',
             });
+        }
+
+        @Emit('matchAdded')
+        onMatchAdded() {
+
         }
     }
 </script>
