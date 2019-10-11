@@ -40,19 +40,12 @@ class CalculateCompetitorStats {
                             reject(err);
                         } else {
                             matchContestants.forEach((matchContestant) => this._countResult(matchContestant));
-
-                            console.log(
-                                'counts',
-                                this.played,
-                                this.wins,
-                                this.draws,
-                                this.loses
-                            );
                         }
+
+                        resolve(true);
                     }
                 );
 
-            resolve(true);
         });
     }
 
@@ -76,7 +69,7 @@ class CalculateCompetitorStats {
                 competitorId: this.competitorId
             }, competitorUpdates, (err) => {
                 console.log( 'comp update', err );
-                
+
                 return err ? reject(err) : resolve()
             })
         });
