@@ -81,6 +81,8 @@ class CalculateCompetitorStats {
      */
     _countResult(matchContestant) {
         this.played++;
+        
+        console.log( this.competitorId, matchContestant.competitorId, matchContestant.foeId );
 
         switch(matchContestant.result) {
             case MatchContestant.RESULT.WIN:
