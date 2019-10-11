@@ -148,6 +148,7 @@
     import Component from 'vue-class-component';
     import {Getter} from 'vuex-class';
     import MatchesService from '../services/MatchesService';
+    import {Emit} from 'vue-property-decorator';
 
     @Component({})
     export default class AddMatch extends Vue {
