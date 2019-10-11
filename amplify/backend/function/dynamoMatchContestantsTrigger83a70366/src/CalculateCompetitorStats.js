@@ -34,13 +34,21 @@ class CalculateCompetitorStats {
                 })
                 .exec(
                     (err, matchContestants) => {
-                        console.log('mc');
-                        console.log(matchContestants);
-
                         if (err) {
                             reject(err);
                         } else {
-                            matchContestants.forEach((matchContestant) => this._countResult(matchContestant));
+                            matchContestants.forEach((matchContestant) => {
+                                console.log( matchContestant );
+
+                                return this._countResult(matchContestant)
+                            });
+
+                            console.log(
+                                this.played,
+                                this.wins,
+                                this.draws,
+                                this.loses
+                            );
                         }
                     }
                 );
@@ -60,6 +68,8 @@ class CalculateCompetitorStats {
             draws: this.draws,
             loses: this.loses
         };
+        
+        console.log( 'comp', competitorUpdates );
 
         return new Promise((resolve, reject) => {
             Competitor.update({
