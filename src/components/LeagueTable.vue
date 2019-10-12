@@ -5,7 +5,7 @@
             :data="competitors"
             default-sort="rank"
             default-sort-direction="desc"
-            mobile-cards="false"
+            :mobile-cards="false"
         ></b-table>
     </div>
 </template>
