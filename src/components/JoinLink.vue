@@ -27,17 +27,19 @@
         },
     })
     export default class JoinLink extends AppComponent {
+        copyError = false;
+
         get linkUrl() {
             return `${window.location.host}/${this.leagueId}/join`;
         }
 
         onCopy() {
-            this.showMessage('Link to join league copied', 'is-info');
+            this.showMessage('Link to join league copied!', 'is-info');
         }
 
         onError() {
             this.copyError = true;
-            this.showMessage('Unable to copy join link');
+            this.showMessage('Unable to copy join link.');
         }
     }
 </script>
