@@ -144,14 +144,14 @@
 </template>
 
 <script>
-    import Vue from 'vue';
     import Component from 'vue-class-component';
     import {Getter} from 'vuex-class';
     import MatchesService from '../services/MatchesService';
     import {Emit} from 'vue-property-decorator';
+    import AppComponent from '../AppComponent';
 
     @Component({})
-    export default class AddMatch extends Vue {
+    export default class AddMatch extends AppComponent {
         @Getter('league/competitors') competitors;
         @Getter('league/leagueId') leagueId;
 
@@ -207,14 +207,6 @@
 
         async isValid() {
             return this.$validator.validateAll().then((result) => result);
-        }
-
-        showMessage(message, type = 'is-danger') {
-            this.$buefy.toast.open({
-                message,
-                type,
-                position: 'is-top',
-            });
         }
 
         @Emit('matchAdded')
