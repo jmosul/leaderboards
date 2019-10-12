@@ -8,6 +8,7 @@ import router from './router';
 import store from '@/stores';
 import Buefy from 'buefy';
 import VeeValidate from 'vee-validate';
+import VueClipboard from 'vue-clipboard2';
 
 Vue.config.productionTip = false;
 
@@ -25,6 +26,8 @@ Vue.use(Buefy, {
 Vue.use(VeeValidate, {
     events: '',
 });
+
+Vue.use(VueClipboard);
 
 new Vue({
     router,

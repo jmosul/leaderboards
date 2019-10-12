@@ -4,8 +4,8 @@ import Home from './views/Home.vue';
 import Identity from './views/Identity.vue';
 import NotFound from './views/NotFound.vue';
 import League from './views/League.vue';
-// import {sync} from 'vuex-router-sync';
 import store from '@/stores';
+import Join from './views/Join';
 
 Vue.use(Router);
 
@@ -31,6 +31,11 @@ const router = new Router({
             component: League,
         },
         {
+            path: '/:leagueId/join',
+            name: 'join',
+            component: Join,
+        },
+        {
             path: '*',
             component: NotFound,
         },
@@ -45,6 +50,10 @@ router.beforeResolve((to, from, next) => {
             // update user store
             store.commit('user/username', data.username);
             store.commit('user/id', data.attributes.sub);
+
+            if (store.getters['user/leagueIds'].length === 0) {
+                store.dispatch('user/updateLeagues');
+            }
 
             if (to.matched.some(record => record.meta.signedOutOnly)) {
                 store.dispatch('league/handleRouteChange', {params: {}});

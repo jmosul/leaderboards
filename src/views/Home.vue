@@ -73,7 +73,6 @@
         @Getter('user/leagues') leagues;
         @Getter('user/loadingLeagues') loadingLeagues;
 
-
         get isLoading() {
             return this.loadingLeagues;
         }

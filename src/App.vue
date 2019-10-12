@@ -44,12 +44,17 @@
 </script>
 
 <style lang="scss">
-    main {
-        padding-top: 15px;
-    }
-
     // Import Bulma's core
     @import "~bulma/sass/utilities/_all";
+
+    main {
+        padding-top: 15px;
+
+        p {
+            margin: 10px;
+        }
+    }
+
 
     // Set your colors
     $primary: #8c67ef;

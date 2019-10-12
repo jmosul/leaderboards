@@ -16,9 +16,9 @@
             ></b-input>
         </b-field>
         <button
-            class="button is-primary is-outlined"
+            class="button is-primary"
+            :class="{'is-outlined': !primaryActionButton, 'is-large': primaryActionButton}"
             type="submit"
-
             :disabled="isJoining"
         >
             <span class="icon is-small">
@@ -49,6 +49,7 @@
         props: {
             id: String,
             inputDisabled: Boolean,
+            isPrimaryAction: Boolean,
         },
     })
     export default class JoinLeague extends LeagueForm {
@@ -66,6 +67,13 @@
          */
         get disableInput() {
             return this.inputDisabled || this.isJoining;
+        }
+
+        /**
+         * @returns {Boolean}
+         */
+        get primaryActionButton() {
+            return this.isPrimaryAction;
         }
 
         get fieldType() {

@@ -2,7 +2,7 @@ import LeaguesService from '../../services/LeaguesService';
 import CompetitorsService from '../../services/CompetitorsService';
 
 export default {
-    handleRouteChange: async({commit, dispatch}, {params}) => {
+    handleRouteChange: async({commit, dispatch, getters}, {params}) => {
         commit('leagueId', params.leagueId);
 
         return dispatch('updateLeague');

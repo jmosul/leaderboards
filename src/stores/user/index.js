@@ -5,8 +5,6 @@ import actions from './actions';
 
 const namespaced = true;
 
-console.log( 'u', state );
-
 export default {
     namespaced,
     state,
