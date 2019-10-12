@@ -1,9 +1,9 @@
-import Vue from 'vue';
 import uuidRegex from '../../utils/uuidRegex';
 import CompetitorsService from '../../services/CompetitorsService';
 import {Action, Getter} from 'vuex-class';
+import AppComponent from '../../AppComponent';
 
-export default class LeagueForm extends Vue {
+export default class LeagueForm extends AppComponent {
     @Getter('user/username') username;
     @Action('user/updateLeagues') updateUserLeagues;
 
@@ -30,11 +30,15 @@ export default class LeagueForm extends Vue {
                 .store(data)
                 .then(
                     () => {
+                        this.showMessage('League joined!', 'is-success');
                         this.updateUserLeagues();
 
                         this.$router.go('league', {leagueId: this.leagueId})
                     },
-                    (error) => error
+                    (error) => {
+                        this.showMessage('There was a problem trying to join this league.');
+                        error
+                    }
                 );
         }
     }
