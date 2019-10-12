@@ -1,10 +1,11 @@
 import Vue from 'vue';
 import uuidRegex from '../../utils/uuidRegex';
 import CompetitorsService from '../../services/CompetitorsService';
-import {Getter} from 'vuex-class';
+import {Action, Getter} from 'vuex-class';
 
 export default class LeagueForm extends Vue {
     @Getter('user/username') username;
+    @Action('user/updateLeagues') updateUserLeagues;
 
     leagueId = '';
     competitorName = '';
@@ -28,7 +29,11 @@ export default class LeagueForm extends Vue {
                 .leagueId(this.leagueId)
                 .store(data)
                 .then(
-                    () => this.$router.go('league', {leagueId: this.leagueId}),
+                    () => {
+                        this.updateUserLeagues();
+
+                        this.$router.go('league', {leagueId: this.leagueId})
+                    },
                     (error) => error
                 );
         }

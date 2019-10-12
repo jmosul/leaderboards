@@ -70,11 +70,9 @@
         },
     })
     export default class Home extends Vue {
-        @Getter('league/leaguePool') leaguePool;
+        @Getter('user/leagues') leagues;
+        @Getter('user/loadingLeagues') loadingLeagues;
 
-        leagues = [];
-
-        loadingLeagues = true;
 
         get isLoading() {
             return this.loadingLeagues;
@@ -82,15 +80,6 @@
 
         get hasNoLeagues() {
             return !this.isLoading && this.leagues.length === 0;
-        }
-
-        mounted() {
-            LeaguesService.index({leaguePool: this.leaguePool})
-                .then((leagues) => {
-                    this.leagues = leagues;
-                    this.loadingLeagues = false;
-                })
-                .catch((error) => console.log(error));
         }
     }
 </script>
