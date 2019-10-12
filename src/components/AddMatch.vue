@@ -115,10 +115,10 @@
                                     expanded
                                 >
                                     <option value="home">
-                                         {{ match.homeCompetitor.length ? match.homeCompetitor : 'Home' }}
+                                         {{ match.homeCompetitor && match.homeCompetitor.length ? match.homeCompetitor : 'Home' }}
                                     </option>
                                     <option value="away">
-                                        {{ match.awayCompetitor.length ? match.awayCompetitor : 'Away' }}
+                                        {{ match.awayCompetitor && match.awayCompetitor.length ? match.awayCompetitor : 'Away' }}
                                     </option>
                                     <option value="draw">
                                         Draw
