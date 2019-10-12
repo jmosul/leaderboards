@@ -6,7 +6,7 @@
                 <span>&nbsp; {{name}}</span>
 
                 <b-button
-                    class="league__refresh"
+                    class="is-pulled-right"
                     icon-left="sync"
                     icon-pack="fas"
                     :loading="loadingLeague"
@@ -41,8 +41,4 @@
     }
 </script>
 
-<style scoped>
-    .league__refresh {
-        float: right;
-    }
-</style>
+<style scoped></style>
