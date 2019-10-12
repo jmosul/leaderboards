@@ -10,6 +10,7 @@ export default class AppComponent extends Vue {
             message,
             type,
             position: 'is-top',
+            duration: 2500
         });
     }
 }
