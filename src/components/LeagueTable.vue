@@ -1,12 +1,36 @@
 <template>
     <div class="panel">
         <b-table
-            :columns="columns"
             :data="competitors"
             default-sort="rank"
             default-sort-direction="desc"
             :mobile-cards="false"
-        ></b-table>
+        >
+            <template slot-scope="props">
+                <b-table-column field="name" label="Name">
+                    <router-link :to="{name: 'competitor', params: {leagueId, competitorId: props.row.competitorId}}">
+                        {{ props.row.name }}
+                    </router-link>
+                </b-table-column>
+
+                <b-table-column field="played" label="Played" numeric>
+                    {{ props.row.played }}
+                </b-table-column>
+
+                <b-table-column field="wins" label="Wins" numeric>
+                    {{ props.row.wins }}
+                </b-table-column>
+
+                <b-table-column field="loses" label="Loses" numeric>
+                    {{ props.row.loses }}
+                </b-table-column>
+
+                <b-table-column field="rank" label="Rank" numeric sortable>
+                    {{ props.row.rank }}
+                </b-table-column>
+
+            </template>
+        </b-table>
     </div>
 </template>
 
@@ -18,34 +42,7 @@
     @Component({})
     export default class LeagueTable extends Vue {
         @Getter('league/competitors') competitors;
-
-        columns = [
-            {
-                field: 'name',
-                label: 'Name',
-            },
-            {
-                field: 'played',
-                label: 'Played',
-                isNumeric: true,
-            },
-            {
-                field: 'wins',
-                label: 'Wins',
-                isNumeric: true,
-            },
-            {
-                field: 'loses',
-                label: 'Loses',
-                isNumeric: true,
-            },
-            {
-                field: 'rank',
-                label: 'Rank',
-                isNumeric: true,
-                sortable: true,
-            },
-        ];
+        @Getter('league/leagueId') leagueId;
     }
 </script>
 

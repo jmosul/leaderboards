@@ -58,7 +58,7 @@
         @Getter('league/competitors') competitors;
 
         get leagueLeader() {
-            return this.competitors.length ? this.competitors.sort((a, b) => a.rank - b.rank)[0] : undefined;
+            return this.competitors.length ? this.competitors.sort((a, b) => b.rank - a.rank)[0] : undefined;
         }
     }
 </script>

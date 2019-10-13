@@ -7,6 +7,7 @@ import League from './views/League.vue';
 import store from '@/stores';
 import Join from './views/Join';
 import Standings from './views/Standings';
+import Competitor from './views/Competitor';
 
 Vue.use(Router);
 
@@ -42,7 +43,12 @@ const router = new Router({
                     name: 'join',
                     component: Join,
                 },
-            ]
+                {
+                    path: 'competitors/:competitorId',
+                    name: 'competitor',
+                    component: Competitor,
+                },
+            ],
         },
         {
             path: '*',
@@ -52,12 +58,7 @@ const router = new Router({
     ],
 });
 
-// sync(store, router);
-
-console.log( router.options.routes );
-
 router.beforeResolve((to, from, next) => {
-
     if (to.path !== '*') {
         Vue.prototype.$Amplify.Auth.currentAuthenticatedUser().then(data => {
             // update user store
@@ -73,13 +74,6 @@ router.beforeResolve((to, from, next) => {
 
                 next({path: '/'});
             }
-
-            // if(to.name === 'league') {
-            //     next({
-            //         name: 'standings',
-            //
-            //     })
-            // }
 
             store.dispatch('league/handleRouteChange', to).then(
                 () => next()

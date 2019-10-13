@@ -22,7 +22,7 @@
 
     @Component({
         components: {
-            JoinLeague
+            JoinLeague,
         },
     })
     export default class Home extends Vue {
@@ -32,4 +32,3 @@
         @Getter('league/isLoading') isLoading;
     }
 </script>
-
