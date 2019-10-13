@@ -6,12 +6,7 @@
                 <p class="panel-heading has-background-secondary has-text-light">
                     Your Leagues
                     <span v-if="isLoading">
-                    <b-icon
-                        custom-class="fa-spin"
-                        icon="volleyball-ball"
-                        pack="fas"
-                        size="is-small"
-                    ></b-icon>
+
                 </span>
                 </p>
                 <div class="panel-block">
@@ -55,7 +50,6 @@
     import Vue from 'vue';
     import Component from 'vue-class-component';
     import {Icon, Tabs} from 'buefy/src/index';
-    import LeaguesService from '../services/LeaguesService';
     import JoinLeague from '../components/LeagueForms/JoinLeague';
     import CreateLeague from '../components/LeagueForms/CreateLeague';
     import {Getter} from 'vuex-class';
