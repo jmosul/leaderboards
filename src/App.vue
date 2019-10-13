@@ -99,6 +99,10 @@
         p {
             margin: 10px;
         }
+
+        p.panel-heading {
+            margin: 0;
+        }
     }
 
     .app {
