@@ -1,48 +1,50 @@
 <template>
-    <div class="home columns is-desktop">
-        <section class="column is-two-thirds">
-            <div class="panel">
+    <div class="container">
+        <div class="home columns is-desktop">
+            <section class="column is-two-thirds">
+                <div class="panel">
 
-                <p class="panel-heading has-background-secondary has-text-light">
-                    Your Leagues
-                    <span v-if="isLoading">
+                    <p class="panel-heading has-background-secondary has-text-light">
+                        Your Leagues
+                        <span v-if="isLoading">
 
-                </span>
-                </p>
-                <div class="panel-block">
-                    <p class="control has-icons-left">
-                        <input
-                            :disabled="isLoading"
-                            class="input is-small"
-                            placeholder="Search"
-                            type="text"
-                        >
-                        <b-icon icon="search" size="is-small" pack="fas" class="is-left"></b-icon>
+                    </span>
                     </p>
+                    <div class="panel-block">
+                        <p class="control has-icons-left">
+                            <input
+                                :disabled="isLoading"
+                                class="input is-small"
+                                placeholder="Search"
+                                type="text"
+                            >
+                            <b-icon icon="search" size="is-small" pack="fas" class="is-left"></b-icon>
+                        </p>
+                    </div>
+                    <router-link class="panel-block" v-for="(league, index) in leagues" :key="index" :to="{ name: 'standings', params: { leagueId: league.leagueId }}">
+                        <b-icon v-bind:icon="league.icon" size="is-small" pack="fas" class="is-left"></b-icon>
+                        {{league.name}}
+                    </router-link>
+                    <div class="panel-block has-text-grey" v-if="hasNoLeagues">
+                        You have not entered any Leagues
+                    </div>
                 </div>
-                <router-link class="panel-block" v-for="(league, index) in leagues" :key="index" :to="{ name: 'league', params: { leagueId: league.leagueId }}">
-                    <b-icon v-bind:icon="league.icon" size="is-small" pack="fas" class="is-left"></b-icon>
-                    {{league.name}}
-                </router-link>
-                <div class="panel-block has-text-grey" v-if="hasNoLeagues">
-                    You have not entered any Leagues
+            </section>
+            <section class="column is-one-third">
+                <div class="panel">
+                    <div class="panel-block">
+                        <b-tabs position="is-centered" class="is-fullwidth">
+                            <b-tab-item label="Join League">
+                                <join-league></join-league>
+                            </b-tab-item>
+                            <b-tab-item label="Create League">
+                                <create-league></create-league>
+                            </b-tab-item>
+                        </b-tabs>
+                    </div>
                 </div>
-            </div>
-        </section>
-        <section class="column is-one-third">
-            <div class="panel">
-                <div class="panel-block">
-                    <b-tabs position="is-centered" class="is-fullwidth">
-                        <b-tab-item label="Join League">
-                            <join-league></join-league>
-                        </b-tab-item>
-                        <b-tab-item label="Create League">
-                            <create-league></create-league>
-                        </b-tab-item>
-                    </b-tabs>
-                </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
 </template>
 
@@ -76,3 +78,9 @@
         }
     }
 </script>
+
+<style scoped lang="scss">
+    .home {
+        padding-top: 15px;
+    }
+</style>

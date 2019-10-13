@@ -1,15 +1,5 @@
 <template>
     <div class="join">
-        <section class="hero is-secondary">
-            <div class="hero-body">
-                <div class="container">
-                    <h1 class="title">
-                        <b-icon :icon="icon" pack="fas"></b-icon>
-                        <span>&nbsp; Join {{name}}</span>
-                    </h1>
-                </div>
-            </div>
-        </section>
         <div class="columns is-desktop">
             <section class="column is-three-fifths-desktop is-offset-one-fifth-desktop has-text-centered">
                 <p>Looks like you've been invited join {{name}}.</p>
@@ -32,7 +22,7 @@
 
     @Component({
         components: {
-            JoinLeague
+            JoinLeague,
         },
     })
     export default class Home extends Vue {
@@ -42,4 +32,3 @@
         @Getter('league/isLoading') isLoading;
     }
 </script>
-

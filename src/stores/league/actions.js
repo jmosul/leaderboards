@@ -52,5 +52,5 @@ export default {
     },
     isMember:({rootState, getters}) => {
         return rootState.user.leagueIds.indexOf(getters.leagueId) > -1;
-    }
+    },
 };

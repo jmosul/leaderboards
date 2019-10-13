@@ -1,7 +1,7 @@
 <template>
-  <div class="identity">
+  <section class="identity container">
     <amplify-authenticator v-bind:authConfig="authConfig"></amplify-authenticator>
-  </div>
+  </section>
 </template>
 
 <script>
