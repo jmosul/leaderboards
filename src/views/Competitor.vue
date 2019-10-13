@@ -40,6 +40,23 @@
                 </div>
             </section>
         </div>
+        <div class="column is-two-thirds">
+            <section class="competitor__matches">
+                <h3 class="title is-4">
+                    Recent Matches
+                </h3>
+                <hr>
+                <p class="has-text-grey-light">Coming soon...<br><br><br></p>
+            </section>
+
+            <section class="competitor__matches">
+                <h3 class="title is-4">
+                    Head to Head Matches
+                </h3>
+                <hr>
+                <p class="has-text-grey-light">Coming soon...</p>
+            </section>
+        </div>
     </div>
 </template>
 
@@ -47,12 +64,27 @@
     import Component from 'vue-class-component';
     import CompetitorComponent from '../components/CompetitorComponent';
     import BIcon from 'buefy/src/components/icon/Icon';
+    import MatchesService from '../services/MatchesService';
 
     @Component({
         components: {BIcon}
     })
     export default class Competitor extends CompetitorComponent {
 
+        mounted() {
+            // this.loadRecentMatches();
+        }
+
+        loadRecentMatches() {
+            return MatchesService.index().then(
+                (matches) => {
+                    this.recentMatches = matches;
+
+                    console.log( matches );
+                },
+                (error) => this.showMessage(error.message)
+            );
+        }
     }
 </script>
 

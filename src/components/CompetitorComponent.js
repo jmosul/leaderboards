@@ -27,6 +27,9 @@ export default class CompetitorComponent extends AppComponent {
         )[0] || {};
     }
 
+    /**
+     * @returns {number}
+     */
     get leaguePosition() {
         return this.leagueCompetitors.findIndex((competitor) => competitor.competitorId === this.competitorId) + 1;
     }

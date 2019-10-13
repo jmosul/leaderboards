@@ -38,7 +38,7 @@
         }
 
         onCopy() {
-            this.showMessage('Link to join league copied!', 'is-info');
+            this.showMessage('Link to join league copied!', 'is-success');
         }
 
         onError() {
