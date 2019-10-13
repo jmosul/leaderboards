@@ -10,15 +10,15 @@
                 icon-pack="fas"
                 type="text"
                 v-model="leagueId"
-                :disabled="isJoining"
+                :disabled="disableInput"
                 expanded
                 required
             ></b-input>
         </b-field>
         <button
-            class="button is-primary is-outlined"
+            class="button is-primary"
+            :class="{'is-outlined': !primaryActionButton, 'is-large': primaryActionButton}"
             type="submit"
-
             :disabled="isJoining"
         >
             <span class="icon is-small">
@@ -45,10 +45,35 @@
     import Component from 'vue-class-component';
     import LeagueForm from './LeagueForm';
 
-    @Component({})
+    @Component({
+        props: {
+            id: String,
+            inputDisabled: Boolean,
+            isPrimaryAction: Boolean,
+        },
+    })
     export default class JoinLeague extends LeagueForm {
+
         mounted() {
+            if(this.id) {
+                this.leagueId = this.id;
+            }
+
             this.competitorName = this.username;
+        }
+
+        /**
+         * @returns {boolean}
+         */
+        get disableInput() {
+            return this.inputDisabled || this.isJoining;
+        }
+
+        /**
+         * @returns {Boolean}
+         */
+        get primaryActionButton() {
+            return this.isPrimaryAction;
         }
 
         get fieldType() {

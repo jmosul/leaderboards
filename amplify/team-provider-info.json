@@ -15,7 +15,9 @@
                 "leaderboards48066ade": {}
             },
             "function": {
-                "leaderboards48066adePreSignup": {}
+                "leaderboards48066adePreSignup": {},
+                "leaderboardsExpress": {},
+                "dynamoMatchContestantsTrigger83a70366": {}
             }
         }
     }

@@ -6,12 +6,7 @@
                 <p class="panel-heading has-background-secondary has-text-light">
                     Your Leagues
                     <span v-if="isLoading">
-                    <b-icon
-                        custom-class="fa-spin"
-                        icon="volleyball-ball"
-                        pack="fas"
-                        size="is-small"
-                    ></b-icon>
+
                 </span>
                 </p>
                 <div class="panel-block">
@@ -55,7 +50,6 @@
     import Vue from 'vue';
     import Component from 'vue-class-component';
     import {Icon, Tabs} from 'buefy/src/index';
-    import LeaguesService from '../services/LeaguesService';
     import JoinLeague from '../components/LeagueForms/JoinLeague';
     import CreateLeague from '../components/LeagueForms/CreateLeague';
     import {Getter} from 'vuex-class';
@@ -70,11 +64,8 @@
         },
     })
     export default class Home extends Vue {
-        @Getter('league/leaguePool') leaguePool;
-
-        leagues = [];
-
-        loadingLeagues = true;
+        @Getter('user/leagues') leagues;
+        @Getter('user/loadingLeagues') loadingLeagues;
 
         get isLoading() {
             return this.loadingLeagues;
@@ -82,15 +73,6 @@
 
         get hasNoLeagues() {
             return !this.isLoading && this.leagues.length === 0;
-        }
-
-        mounted() {
-            LeaguesService.index({leaguePool: this.leaguePool})
-                .then((leagues) => {
-                    this.leagues = leagues;
-                    this.loadingLeagues = false;
-                })
-                .catch((error) => console.log(error));
         }
     }
 </script>
