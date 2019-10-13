@@ -6,6 +6,7 @@ import NotFound from './views/NotFound.vue';
 import League from './views/League.vue';
 import store from '@/stores';
 import Join from './views/Join';
+import Standings from './views/Standings';
 
 Vue.use(Router);
 
@@ -20,6 +21,7 @@ const router = new Router({
         },
         {
             path: '/identity',
+            name: 'identity',
             component: Identity,
             meta: {
                 signedOutOnly: true,
@@ -29,14 +31,22 @@ const router = new Router({
             path: '/:leagueId',
             name: 'league',
             component: League,
-        },
-        {
-            path: '/:leagueId/join',
-            name: 'join',
-            component: Join,
+            children: [
+                {
+                    path: '',
+                    name: 'standings',
+                    component: Standings,
+                },
+                {
+                    path: 'join',
+                    name: 'join',
+                    component: Join,
+                },
+            ]
         },
         {
             path: '*',
+            name: '404',
             component: NotFound,
         },
     ],
@@ -44,7 +54,10 @@ const router = new Router({
 
 // sync(store, router);
 
+console.log( router.options.routes );
+
 router.beforeResolve((to, from, next) => {
+
     if (to.path !== '*') {
         Vue.prototype.$Amplify.Auth.currentAuthenticatedUser().then(data => {
             // update user store
@@ -60,6 +73,13 @@ router.beforeResolve((to, from, next) => {
 
                 next({path: '/'});
             }
+
+            // if(to.name === 'league') {
+            //     next({
+            //         name: 'standings',
+            //
+            //     })
+            // }
 
             store.dispatch('league/handleRouteChange', to).then(
                 () => next()

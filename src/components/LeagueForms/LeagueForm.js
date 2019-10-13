@@ -54,7 +54,7 @@ export default class LeagueForm extends AppComponent {
     }
 
     redirectToLeague() {
-        this.$router.push({name: 'league', params: {leagueId: this.leagueId}});
+        this.$router.push({name: 'standings', params: {leagueId: this.leagueId}});
     }
 
     validateLeagueId() {

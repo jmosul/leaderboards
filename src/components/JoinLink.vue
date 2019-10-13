@@ -1,20 +1,14 @@
 <template>
-    <div class="join__link">
-        <button
-            class="button"
-            v-clipboard:copy="linkUrl"
-            v-clipboard:success="onCopy"
-            v-clipboard:error="onError"
-        >
-            <b-icon icon="share-alt" pack="fas"></b-icon>
-            <span>&nbsp; Invite link</span>
-        </button>
-
-        <small v-if="copyError">
-            Copy link:
-            <a :href="linkUrl" target="_blank" title="Join League">{{linkUrl}}</a>
-        </small>
-    </div>
+    <button
+        :class="buttonClass"
+        title="Copy league invite link"
+        v-clipboard:copy="linkUrl"
+        v-clipboard:success="onCopy"
+        v-clipboard:error="onError"
+    >
+        <b-icon icon="share-alt" pack="fas"></b-icon>
+        <span v-if="buttonText">&nbsp; {{buttonText}}</span>
+    </button>
 </template>
 
 <script>
@@ -24,6 +18,8 @@
     @Component({
         props: {
             leagueId: String,
+            type: String,
+            text: String,
         },
     })
     export default class JoinLink extends AppComponent {
@@ -31,6 +27,14 @@
 
         get linkUrl() {
             return `${window.location.host}/${this.leagueId}/join`;
+        }
+
+        get buttonText() {
+            return this.text && this.text.length ? this.text : undefined;
+        }
+
+        get buttonClass() {
+            return `button ${this.type}`.trim();
         }
 
         onCopy() {

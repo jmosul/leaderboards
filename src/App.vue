@@ -2,7 +2,7 @@
 <template>
     <div class="app">
         <app-header></app-header>
-        <main class="container">
+        <main>
             <router-view></router-view>
         </main>
         <app-footer></app-footer>
@@ -94,7 +94,7 @@
     }
 
     main {
-        padding-top: 15px;
+        padding-bottom: 15px;
 
         p {
             margin: 10px;
