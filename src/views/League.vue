@@ -31,6 +31,7 @@
         <div class="container">
             <router-view></router-view>
         </div>
+        <b-loading :active.sync="isFirstLoading"></b-loading>
     </div>
 </template>
 
@@ -59,6 +60,13 @@
          */
         get leagueLeader() {
             return this.competitors.length ? this.competitors.sort((a, b) => b.rank - a.rank)[0] : undefined;
+        }
+
+        /**
+         * @returns {boolean}
+         */
+        get isFirstLoading() {
+            return this.loadingLeague && !this.name;
         }
     }
 </script>
