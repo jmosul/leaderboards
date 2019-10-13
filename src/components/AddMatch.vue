@@ -99,34 +99,31 @@
                     <tr>
                         <td colspan="3">
                             <b-field
+                                label="Winner"
+                                label-position="on-border"
+                                class="is-fullwidth"
                                 position="is-centered"
+                                :type="{'is-danger': errors.has('victor')}"
+                                :message="errors.first('victor')"
                             >
-                                <b-radio-button
+                                <b-select
+                                    placeholder="Choose winner"
                                     v-model="match.victor"
-                                    native-value="home"
-                                    type="is-success"
-                                    name="winner"
+                                    size="is-medium"
+                                    name="victor"
+                                    v-validate="{required: true}"
+                                    expanded
                                 >
-                                    <span>Home</span>
-                                </b-radio-button>
-
-                                <b-radio-button
-                                    v-model="match.victor"
-                                    native-value="draw"
-                                    type="is-secondary"
-                                    name="winner"
-                                >
-                                    Draw
-                                </b-radio-button>
-
-                                <b-radio-button
-                                    v-model="match.victor"
-                                    native-value="away"
-                                    type="is-success"
-                                    name="winner"
-                                >
-                                    Away
-                                </b-radio-button>
+                                    <option value="home">
+                                         {{ match.homeCompetitor && match.homeCompetitor.length ? match.homeCompetitor : 'Home' }}
+                                    </option>
+                                    <option value="away">
+                                        {{ match.awayCompetitor && match.awayCompetitor.length ? match.awayCompetitor : 'Away' }}
+                                    </option>
+                                    <option value="draw">
+                                        Draw
+                                    </option>
+                                </b-select>
                             </b-field>
                         </td>
                     </tr>
@@ -147,13 +144,14 @@
 </template>
 
 <script>
-    import Vue from 'vue';
     import Component from 'vue-class-component';
     import {Getter} from 'vuex-class';
     import MatchesService from '../services/MatchesService';
+    import {Emit} from 'vue-property-decorator';
+    import AppComponent from '../AppComponent';
 
     @Component({})
-    export default class AddMatch extends Vue {
+    export default class AddMatch extends AppComponent {
         @Getter('league/competitors') competitors;
         @Getter('league/leagueId') leagueId;
 
@@ -175,7 +173,7 @@
             this.match.awayCompetitor = '';
             this.match.homeScore = '';
             this.match.awayScore = '';
-            this.match.victor = 'draw';
+            this.match.victor = '';
         }
 
         async handleSubmit() {
@@ -198,6 +196,7 @@
                         this.showMessage('Match added', 'is-success');
                         this.resetMatch();
                         this.$validator.reset();
+                        this.onMatchAdded();
                     },
                     ({message}) => {
                         this.adding = false;
@@ -210,12 +209,9 @@
             return this.$validator.validateAll().then((result) => result);
         }
 
-        showMessage(message, type = 'is-danger') {
-            this.$buefy.toast.open({
-                message,
-                type,
-                position: 'is-top',
-            });
+        @Emit('matchAdded')
+        onMatchAdded() {
+
         }
     }
 </script>

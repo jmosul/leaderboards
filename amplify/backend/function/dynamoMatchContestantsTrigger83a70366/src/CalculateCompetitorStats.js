@@ -12,13 +12,15 @@ class CalculateCompetitorStats {
     }
 
     handle() {
-        this._resetCounts();
+        return new Promise((resolve, reject) => {
+            this._resetCounts();
 
-        return this._updateCounts()
-            .then(() => this._updateCompetitor())
-            .catch((err) => {
-                throw err;
-            })
+            return this._updateCounts()
+                .then(() => this._updateCompetitor().then(() => resolve(true)))
+                .catch((err) => {
+                    reject(err);
+                })
+        })
     }
 
     /**
@@ -28,22 +30,20 @@ class CalculateCompetitorStats {
     async _updateCounts() {
         return new Promise((resolve, reject) => {
             MatchContestant
-                .query({
-                    leagueId: {eq: this.leagueId},
-                    competitorId: {eq: this.competitorId}
-                })
+                .query('leagueId').eq(this.leagueId)
+                .filter('competitorId').eq(this.competitorId)
                 .exec(
                     (err, matchContestants) => {
                         if (err) {
-                            console.log(err);
                             reject(err);
                         } else {
-                            matchContestants.each((matchContestant) => this._countResult(matchContestant));
+                            matchContestants.forEach((matchContestant) => this._countResult(matchContestant));
                         }
+
+                        resolve(true);
                     }
                 );
 
-            resolve(true);
         });
     }
 
@@ -59,11 +59,17 @@ class CalculateCompetitorStats {
             loses: this.loses
         };
 
+        console.log( 'comp', competitorUpdates );
+
         return new Promise((resolve, reject) => {
             Competitor.update({
                 leagueId: this.leagueId,
                 competitorId: this.competitorId
-            }, competitorUpdates, (err) => err ? reject(err) : resolve())
+            }, competitorUpdates, (err) => {
+                console.log( 'comp update', err );
+
+                return err ? reject(err) : resolve()
+            })
         });
     }
 
@@ -73,6 +79,8 @@ class CalculateCompetitorStats {
      */
     _countResult(matchContestant) {
         this.played++;
+
+        console.log( this.competitorId, matchContestant.competitorId, matchContestant.foeId );
 
         switch(matchContestant.result) {
             case MatchContestant.RESULT.WIN:

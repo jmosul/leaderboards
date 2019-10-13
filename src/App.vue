@@ -44,10 +44,6 @@
 </script>
 
 <style lang="scss">
-    main {
-        padding-top: 15px;
-    }
-
     // Import Bulma's core
     @import "~bulma/sass/utilities/_all";
 
@@ -80,7 +76,10 @@
     @import "~bulma";
     @import "~buefy/src/scss/buefy";
 
-    body {
+    html, body {
+        height: 100%;
+        margin: 0;
+
         --color-primary: #{$primary};
         --color-primary-accent: #{$primary-invert};
         --color-primary-highlight: #{$primary};
@@ -92,5 +91,24 @@
         --gradient-blaze: linear-gradient(270deg,#{$secondary},#{$primary});
         --button-background-color: #{$primary};
         --button-color: #{$primary-invert};
+    }
+
+    main {
+        padding-top: 15px;
+
+        p {
+            margin: 10px;
+        }
+
+        p.panel-heading {
+            margin: 0;
+        }
+    }
+
+    .app {
+        box-sizing: border-box;
+        position: relative;
+        padding-bottom: 180px; /* Height of footer */
+        min-height: 100%;
     }
 </style>
