@@ -14,6 +14,22 @@ class MatchesService extends LeagueApiProvider {
         );
     }
 
+    /**
+     * @param params
+     * @returns {Promise<Array<{}>>}
+     */
+    async index(params = {}) {
+        return this._doGet('', params).then(
+            (response) => response.data,
+            (error) => {
+                throw {
+                    message: 'There was a problem loading recent matches',
+                    error,
+                };
+            }
+        )
+    }
+
     get basePath() {
         return `${super.basePath}/matches`;
     }

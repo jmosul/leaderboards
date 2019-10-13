@@ -6,6 +6,8 @@ import NotFound from './views/NotFound.vue';
 import League from './views/League.vue';
 import store from '@/stores';
 import Join from './views/Join';
+import Standings from './views/Standings';
+import Competitor from './views/Competitor';
 
 Vue.use(Router);
 
@@ -20,6 +22,7 @@ const router = new Router({
         },
         {
             path: '/identity',
+            name: 'identity',
             component: Identity,
             meta: {
                 signedOutOnly: true,
@@ -29,20 +32,31 @@ const router = new Router({
             path: '/:leagueId',
             name: 'league',
             component: League,
-        },
-        {
-            path: '/:leagueId/join',
-            name: 'join',
-            component: Join,
+            children: [
+                {
+                    path: '',
+                    name: 'standings',
+                    component: Standings,
+                },
+                {
+                    path: 'join',
+                    name: 'join',
+                    component: Join,
+                },
+                {
+                    path: 'competitors/:competitorId',
+                    name: 'competitor',
+                    component: Competitor,
+                },
+            ],
         },
         {
             path: '*',
+            name: '404',
             component: NotFound,
         },
     ],
 });
-
-// sync(store, router);
 
 router.beforeResolve((to, from, next) => {
     if (to.path !== '*') {

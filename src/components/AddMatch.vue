@@ -1,6 +1,6 @@
 <template>
     <div class="panel">
-        <div class="panel-heading has-background-secondary has-text-light">
+        <div class="panel-heading has-background-dark has-text-light">
             Add Match
         </div>
         <div class="panel-block">
