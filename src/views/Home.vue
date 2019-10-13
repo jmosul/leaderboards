@@ -23,6 +23,7 @@
                     </div>
                     <router-link class="panel-block" v-for="(league, index) in leagues" :key="index" :to="{ name: 'standings', params: { leagueId: league.leagueId }}">
                         <b-icon v-bind:icon="league.icon" size="is-small" pack="fas" class="is-left"></b-icon>
+                        &nbsp;
                         {{league.name}}
                     </router-link>
                     <div class="panel-block has-text-grey" v-if="hasNoLeagues">

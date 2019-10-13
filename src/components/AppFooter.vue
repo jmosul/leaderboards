@@ -31,8 +31,8 @@
 
     @Component({
         components: {
-            BIcon
-        }
+            BIcon,
+        },
     })
     export default class AppFooter extends Vue {
         get year() {

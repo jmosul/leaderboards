@@ -15,19 +15,16 @@
                     </h2>
                 </div>
                 <div class="is-pulled-right">
-                    <div>
-
-                        <b-button
-                            type="is-secondary"
-                            outlined
-                            inverted
-                            icon-left="sync"
-                            icon-pack="fas"
-                            :loading="loadingLeague"
-                            @click="refreshLeague()"
-                        ></b-button>
-                        <join-link :league-id="leagueId" type="is-secondary is-outlined is-inverted"></join-link>
-                    </div>
+                    <b-button
+                        type="is-secondary"
+                        outlined
+                        inverted
+                        icon-left="sync"
+                        icon-pack="fas"
+                        :loading="loadingLeague"
+                        @click="refreshLeague()"
+                    ></b-button>
+                    <join-link :league-id="leagueId" type="is-secondary is-outlined is-inverted"></join-link>
                 </div>
             </div>
         </section>
@@ -57,6 +54,9 @@
         @Getter('league/isLoading') loadingLeague;
         @Getter('league/competitors') competitors;
 
+        /**
+         * @returns {Competitor|undefined}
+         */
         get leagueLeader() {
             return this.competitors.length ? this.competitors.sort((a, b) => b.rank - a.rank)[0] : undefined;
         }

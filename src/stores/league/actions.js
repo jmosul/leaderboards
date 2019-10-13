@@ -50,7 +50,7 @@ export default {
         commit('icon', league.icon);
         commit('leagueId', league.leagueId);
     },
-    isMember:({rootState, getters}) => {
+    isMember: ({rootState, getters}) => {
         return rootState.user.leagueIds.indexOf(getters.leagueId) > -1;
     },
 };

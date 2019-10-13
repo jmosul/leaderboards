@@ -26,10 +26,9 @@ export default class LeagueForm extends AppComponent {
      */
     joinLeague() {
         // if user is already in this league, just redirect to that league
-        if(this.userLeagueIds.indexOf(this.leagueId) > -1) {
+        if (this.userLeagueIds.indexOf(this.leagueId) > -1) {
             this.redirectToLeague();
-        }
-        else if (this.validateLeagueId()) {
+        } else if (this.validateLeagueId()) {
             this.isJoining = true;
 
             const data = {
@@ -46,8 +45,7 @@ export default class LeagueForm extends AppComponent {
                         this.redirectToLeague();
                     },
                     (error) => {
-                        this.showMessage('There was a problem trying to join this league.');
-                        error
+                        this.showMessage(error.message);
                     }
                 );
         }
@@ -57,6 +55,9 @@ export default class LeagueForm extends AppComponent {
         this.$router.push({name: 'standings', params: {leagueId: this.leagueId}});
     }
 
+    /**
+     * @returns {boolean}
+     */
     validateLeagueId() {
         if (this.leagueId) {
             this.leagueId = this.leagueId.substring(0, 36);
