@@ -27,7 +27,7 @@ class MatchesService extends LeagueApiProvider {
                     error,
                 };
             }
-        )
+        );
     }
 
     get basePath() {

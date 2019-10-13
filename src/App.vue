@@ -72,6 +72,8 @@
     $link-invert: $primary-invert;
     $link-focus-border: $primary;
 
+    $margins: 0, 5, 10, 15;
+
     // Import Bulma and Buefy styles
     @import "~bulma";
     @import "~buefy/src/scss/buefy";
@@ -93,22 +95,44 @@
         --button-color: #{$primary-invert};
     }
 
-    main {
-        padding-bottom: 15px;
-
-        p {
-            margin: 10px;
-        }
-
-        p.panel-heading {
-            margin: 0;
-        }
-    }
-
     .app {
         box-sizing: border-box;
         position: relative;
         padding-bottom: 180px; /* Height of footer */
         min-height: 100%;
+
+        main {
+            padding-bottom: 15px;
+
+            p {
+                margin: 10px;
+            }
+
+            p.panel-heading {
+                margin: 0;
+            }
+        }
+
+        @each $margin in $margins {
+            .m-#{$margin} {
+                margin: #{$margin}px;
+            }
+
+            .mt-#{$margin} {
+                margin-top: #{$margin}px;
+            }
+
+            .mr-#{$margin} {
+                margin-right: #{$margin}px;
+            }
+
+            .mb-#{$margin} {
+                margin-bottom: #{$margin}px;
+            }
+
+            .ml-#{$margin} {
+                margin-left: #{$margin}px;
+            }
+        }
     }
 </style>

@@ -65,13 +65,17 @@
     import CompetitorComponent from '../components/CompetitorComponent';
     import BIcon from 'buefy/src/components/icon/Icon';
     import MatchesService from '../services/MatchesService';
+    import {Getter} from 'vuex-class';
 
     @Component({
-        components: {BIcon}
+        components: {BIcon},
     })
     export default class Competitor extends CompetitorComponent {
+        @Getter('league/leagueId') leagueId;
 
         mounted() {
+            MatchesService.leagueId(this.leagueId);
+            //
             // this.loadRecentMatches();
         }
 
@@ -79,8 +83,6 @@
             return MatchesService.index().then(
                 (matches) => {
                     this.recentMatches = matches;
-
-                    console.log( matches );
                 },
                 (error) => this.showMessage(error.message)
             );

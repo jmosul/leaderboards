@@ -23,7 +23,10 @@ class CompetitorsService extends LeagueApiProvider {
         return this._doPost(CompetitorsService._competitorsPath, data).then(
             (response) => new Competitor(response.data),
             (error) => {
-                throw error;
+                throw {
+                    message: 'There was a problem trying to join this league.',
+                    error,
+                };
             }
         );
     }

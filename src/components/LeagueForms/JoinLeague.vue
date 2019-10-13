@@ -53,9 +53,8 @@
         },
     })
     export default class JoinLeague extends LeagueForm {
-
         mounted() {
-            if(this.id) {
+            if (this.id) {
                 this.leagueId = this.id;
             }
 

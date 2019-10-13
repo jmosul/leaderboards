@@ -37,11 +37,17 @@ const router = new Router({
                     path: '',
                     name: 'standings',
                     component: Standings,
+                    meta: {
+                        hideBackButton: true,
+                    },
                 },
                 {
                     path: 'join',
                     name: 'join',
                     component: Join,
+                    meta: {
+                        hideBackButton: true,
+                    },
                 },
                 {
                     path: 'competitors/:competitorId',

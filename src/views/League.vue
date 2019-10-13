@@ -3,7 +3,7 @@
         <section class="hero is-secondary">
             <div class="hero-body">
                 <div class="container is-pulled-left">
-                    <h1 class="title">
+                    <h1 class="title ml-10">
                         <b-icon :icon="icon" pack="fas"></b-icon>
                         <span>
                             &nbsp;
@@ -15,25 +15,35 @@
                     </h2>
                 </div>
                 <div class="is-pulled-right">
-                    <div>
-
-                        <b-button
-                            type="is-secondary"
-                            outlined
-                            inverted
-                            icon-left="sync"
-                            icon-pack="fas"
-                            :loading="loadingLeague"
-                            @click="refreshLeague()"
-                        ></b-button>
-                        <join-link :league-id="leagueId" type="is-secondary is-outlined is-inverted"></join-link>
-                    </div>
+                    <b-button
+                        class="mr-10"
+                        type="is-secondary"
+                        outlined
+                        inverted
+                        icon-left="sync"
+                        icon-pack="fas"
+                        :loading="loadingLeague"
+                        @click="refreshLeague()"
+                    ></b-button>
+                    <join-link :league-id="leagueId" type="is-secondary is-outlined is-inverted"></join-link>
                 </div>
             </div>
         </section>
         <div class="container">
+            <div v-if="showBackButton" class="league__back">
+                <router-link
+                    class="button mt-15 mb-15"
+                    :to="{name: 'standings', params: {leagueId}}"
+                >
+                    <b-icon icon="arrow-left" pack="fas"></b-icon>
+                    &nbsp;
+                    Return to League Standings
+                </router-link>
+            </div>
+
             <router-view></router-view>
         </div>
+        <b-loading :active.sync="isFirstLoading"></b-loading>
     </div>
 </template>
 
@@ -57,8 +67,25 @@
         @Getter('league/isLoading') loadingLeague;
         @Getter('league/competitors') competitors;
 
+        /**
+         * @returns {Competitor|undefined}
+         */
         get leagueLeader() {
             return this.competitors.length ? this.competitors.sort((a, b) => b.rank - a.rank)[0] : undefined;
+        }
+
+        /**
+         * @returns {boolean}
+         */
+        get isFirstLoading() {
+            return this.loadingLeague && !this.name;
+        }
+
+        /**
+         * @returns {boolean}
+         */
+        get showBackButton() {
+            return !this.$route.meta.hideBackButton;
         }
     }
 </script>
@@ -66,12 +93,6 @@
 <style scoped lang="scss">
     .league {
         .hero {
-            margin-bottom: 15px;
-
-            button {
-                margin-left: 10px;
-            }
-
             a {
                 color: #FFF;
 
