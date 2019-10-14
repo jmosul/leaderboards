@@ -18,7 +18,8 @@ class AddMatchController extends Controller {
 
         return await Match.create(
             {
-                leagueId: this.leagueId
+                leagueId: this.leagueId,
+                createdBy: this.userId,
             },
             async(err, match) => {
                 if(err) {
@@ -109,7 +110,8 @@ class AddMatchController extends Controller {
             matchId: this.match.matchId,
             result: this._getParsedResult(homeAway),
             competitorId: homeAway === 'home' ? this.body.homeCompetitor : this.body.awayCompetitor,
-            foeId: homeAway === 'away' ? this.body.homeCompetitor : this.body.awayCompetitor
+            foeId: homeAway === 'away' ? this.body.homeCompetitor : this.body.awayCompetitor,
+            createdBy: this.userId,
         };
     }
 

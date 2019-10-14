@@ -14,20 +14,24 @@ const leaguesSchema = new Schema({
         type: String,
         trim: true,
         rangeKey: true,
-        default: uuid.v4
+        default: uuid.v4,
     },
     name: {
         type: String,
         trim: true,
-        required: true
+        required: true,
     },
     icon: {
         type: String,
         trim: true,
-        default: 'list-ol'
-    }
+        default: 'list-ol',
+    },
+    createdBy: {
+        type: String,
+        trim: true,
+    },
 }, {
-    timestamps: true
+    timestamps: true,
 });
 
 module.exports = dynamoose.model(tableName, leaguesSchema, {
