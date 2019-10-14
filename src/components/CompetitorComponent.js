@@ -18,7 +18,7 @@ export default class CompetitorComponent extends AppComponent {
      * @returns {Competitor|undefined}
      */
     get competitor() {
-        if(this._competitor && this._competitor.competitorId === this.competitorId) {
+        if (this._competitor && this._competitor.competitorId === this.competitorId) {
             return this._competitor;
         }
 

@@ -12,11 +12,15 @@ const competitorsSchema = new Schema({
     competitorId: {
         rangeKey: true,
         type: String,
-        trim: true
+        trim: true,
     },
     name: {
         type: String,
-        trim: true
+        trim: true,
+    },
+    createdBy: {
+        type: String,
+        trim: true,
     },
     rank: {
         type: Number,
@@ -24,22 +28,22 @@ const competitorsSchema = new Schema({
     },
     played: {
         type: Number,
-        default: 0
+        default: 0,
     },
     wins: {
         type: Number,
-        default: 0
+        default: 0,
     },
     loses: {
         type: Number,
-        default: 0
+        default: 0,
     },
     draws: {
         type: Number,
-        default: 0
+        default: 0,
     }
 }, {
-    timestamps: true
+    timestamps: true,
 });
 
 module.exports = dynamoose.model(tableName, competitorsSchema, {

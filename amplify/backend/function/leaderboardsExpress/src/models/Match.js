@@ -16,8 +16,12 @@ const matchSchema = new Schema({
         rangeKey: true,
         default: uuid.v4
     },
+    createdBy: {
+        type: String,
+        trim: true,
+    },
 }, {
-    timestamps: true
+    timestamps: true,
 });
 
 module.exports = dynamoose.model(tableName, matchSchema, {

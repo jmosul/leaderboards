@@ -30,7 +30,8 @@ class CompetitorsController extends ResourceController {
         return await UserLeagues.create(
             {
                 leagueId: this.leagueId,
-                userId
+                userId,
+                createdBy: userId,
             },
             async (err) => {
                 if(!err) {
@@ -39,7 +40,8 @@ class CompetitorsController extends ResourceController {
                         {
                             leagueId: this.leagueId,
                             competitorId: userId,
-                            name
+                            name,
+                            createdBy: this.userId,
                         },
                         (err, competitor) => this.respond(err, competitor)
                     );

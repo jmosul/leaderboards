@@ -14,7 +14,7 @@
             </template>
             <template slot="start">
                 <b-navbar-item tag="router-link" to="/">
-                    Leagues
+                    Your Leagues
                 </b-navbar-item>
             </template>
 

@@ -18,15 +18,15 @@ const matchContestantSchema = new Schema({
     },
     matchId: {
         type: String,
-        trim: true
+        trim: true,
     },
     competitorId: {
         type: String,
-        trim: true
+        trim: true,
     },
     foeId: {
         type: String,
-        trim: true
+        trim: true,
     },
     score: {
         type: Number,
@@ -41,8 +41,12 @@ const matchContestantSchema = new Schema({
     postRank: {
         type: Number,
     },
+    createdBy: {
+        type: String,
+        trim: true,
+    },
 }, {
-    timestamps: true
+    timestamps: true,
 });
 
 const model = dynamoose.model(tableName, matchContestantSchema, {
