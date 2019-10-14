@@ -44,7 +44,8 @@ class LeaguesController extends ResourceController {
             {
                 leaguePool: this.leaguePool,
                 name,
-                icon
+                icon,
+                createdBy: this.userId,
             },
             (err, league) => this.respond(err, league)
         );

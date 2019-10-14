@@ -14,6 +14,10 @@ const userLeaguesSchema = new Schema({
         trim: true,
         rangeKey: true,
     },
+    createdBy: {
+        type: String,
+        trim: true,
+    },
 }, {
     timestamps: true
 });
