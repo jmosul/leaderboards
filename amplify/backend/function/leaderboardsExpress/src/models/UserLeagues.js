@@ -18,6 +18,10 @@ const userLeaguesSchema = new Schema({
         type: String,
         trim: true,
     },
+    pinned: {
+        type: Boolean,
+        default: false,
+    },
 }, {
     timestamps: true
 });

@@ -51,6 +51,15 @@ class LeaguesController extends ResourceController {
         );
     }
 
+    async update(leagueId, data = {}) {
+        return new Promise((resolve, reject) => {
+            UserLeagues.update({userId: this.userId, leagueId}, data, (err) => err ? reject(err) : resolve({leagueId}));
+        }).then(
+            (league) => this.send(league),
+            (error) => this.error(error)
+        );
+    }
+
     async _getLeaguesByIds(leagueIds) {
         return new Promise((resolve, reject) => {
 
@@ -88,6 +97,5 @@ class LeaguesController extends ResourceController {
         });
     }
 }
-
 
 module.exports = LeaguesController;
