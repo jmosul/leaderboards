@@ -1,5 +1,5 @@
 <template>
-    <div class="league">
+    <div class="league mb-15">
         <section class="hero is-secondary">
             <div class="hero-body">
                 <div class="container is-pulled-left">
@@ -32,7 +32,7 @@
         <div class="container">
             <div v-if="showBackButton" class="league__back">
                 <router-link
-                    class="button mt-15 mb-15"
+                    class="button mt-15"
                     :to="{name: 'standings', params: {leagueId}}"
                 >
                     <b-icon icon="arrow-left" pack="fas"></b-icon>
