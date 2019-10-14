@@ -1,6 +1,6 @@
 <template>
     <div class="league mb-15">
-        <section class="hero is-secondary">
+        <section class="hero is-secondary mb-15">
             <div class="hero-body">
                 <div class="container is-pulled-left">
                     <h1 class="title ml-10">
