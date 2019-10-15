@@ -69,7 +69,7 @@ class LeaguesController extends ResourceController {
 
             League.query('leaguePool')
                 .eq(this.leaguePool)
-                .filter('leagueId')
+                .where('leagueId')
                 .in(leagueIds)
                 .exec(
                     (err, leagues) => err ? reject(err) : resolve(leagues)
