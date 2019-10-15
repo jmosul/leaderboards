@@ -67,12 +67,13 @@ class LeaguesController extends ResourceController {
                 resolve([]);
             }
 
-            League.query({
-                leaguePool: {eq: this.leaguePool},
-                leagueId: {in: leagueIds}
-            }).exec(
-                (err, leagues) => err ? reject(err) : resolve(leagues)
-            );
+            League.query('leaguePool')
+                .eq(this.leaguePool)
+                .filter('leagueId')
+                .in(leagueIds)
+                .exec(
+                    (err, leagues) => err ? reject(err) : resolve(leagues)
+                );
         });
     }
 
