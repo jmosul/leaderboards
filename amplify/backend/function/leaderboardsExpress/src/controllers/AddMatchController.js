@@ -150,7 +150,7 @@ class AddMatchController extends Controller {
                 }
             ).exec(
                 (err, competitors) => {
-                    this._setCompetitors(competitors);
+                   // this._setCompetitors(competitors);
 
                     if(err) {
                         return reject(err);
