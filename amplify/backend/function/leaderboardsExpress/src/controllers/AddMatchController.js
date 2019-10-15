@@ -145,21 +145,22 @@ class AddMatchController extends Controller {
         return new Promise((resolve, reject) => {
             Competitor.query(
                 {
-                    leagueId: this.leagueId,
-                    competitorId: { in: [this.body.homeCompetitor, this.body.awayCompetitor] }
+                    leagueId: this.leagueId
                 }
             ).exec(
                 (err, competitors) => {
-                    this._setCompetitors(competitors);
-
                     if(err) {
                         return reject(err);
                     }
 
                     competitors.forEach((competitor) => {
-                        const key = competitor.competitorId === this.body.homeCompetitor ? '_home' : '_away';
+                        if(competitor.competitorId === this.body.homeCompetitor) {
+                            this._home = competitor;
+                        }
 
-                        this[key] = competitor;
+                        if(competitor.competitorId === this.body.awayCompetitor) {
+                            this._away = competitor;
+                        }
                     });
 
                     resolve();
@@ -191,11 +192,6 @@ class AddMatchController extends Controller {
                 competitorId: this._away.competitorId,
             }, {rank: this._away.rank}, (err) => err ? reject(err) : resolve())
         });
-    }
-
-    _setCompetitors(competitors) {
-        this._home = competitors[0];
-        this._away = competitors[1];
     }
 }
 
