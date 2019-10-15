@@ -62,10 +62,11 @@ class LeaguesController extends ResourceController {
 
     async _getLeaguesByIds(leagueIds) {
         return new Promise((resolve, reject) => {
-
             if(!leagueIds || leagueIds.length === 0) {
                 resolve([]);
             }
+
+            console.log( `where leaguePool ${this.leaguePool} where leagueId in `, leagueIds );
 
             League.query('leaguePool')
                 .eq(this.leaguePool)
