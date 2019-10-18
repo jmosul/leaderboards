@@ -27,6 +27,7 @@ export default class LeagueForm extends AppComponent {
     joinLeague() {
         // if user is already in this league, just redirect to that league
         if (this.userLeagueIds.indexOf(this.leagueId) > -1) {
+            this.showMessage('You\'re already a competitor in this league', 'is-info'); 
             this.redirectToLeague();
         } else if (this.validateLeagueId()) {
             this.isJoining = true;
